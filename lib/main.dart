@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/secureSplash',
       routes: {
         '/secureSplash': (context) =>  const secure_notes_splash(),
