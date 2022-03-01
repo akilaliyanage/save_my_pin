@@ -167,7 +167,7 @@ class _LoginState extends State<Login> {
                         Text('Sign In', style: TextStyle(color: Colors.white)),
                     focusColor: Colors.blue,
                     shape: RoundedRectangleBorder(
-                        side: BorderSide(
+                        side: const BorderSide(
                             color: Colors.blue,
                             width: 1,
                             style: BorderStyle.solid),
