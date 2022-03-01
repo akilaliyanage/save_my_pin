@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:save_my_pin/pages/akila/secure_notes_home.dart';
 import 'package:save_my_pin/pages/akila/secure_notes_splash.dart';
 import 'package:save_my_pin/pages/auth/login.dart';
+import 'package:save_my_pin/pages/auth/members.dart';
+import 'package:save_my_pin/pages/auth/profile.dart';
 import 'package:save_my_pin/pages/auth/register.dart';
 
 void main() {
@@ -19,8 +21,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/secureSplash': (context) => const secure_notes_splash(),
         '/secureNotesHome': (context) => secure_notes_home(),
-        Register.routeName: (context) => Register(),
-        Login.routeName: (context) => Login(),
+        Register.routeName: (context) => const Register(),
+        Login.routeName: (context) => const Login(),
+        Profile.routeName: (context) => Profile(),
+        Members.routeName: (context) => Members(),
       },
     );
   }
