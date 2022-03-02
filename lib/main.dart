@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:save_my_pin/pages/akila/secure_notes_home.dart';
 import 'package:save_my_pin/pages/akila/secure_notes_splash.dart';
+import 'package:save_my_pin/pages/auth/access.dart';
 import 'package:save_my_pin/pages/auth/login.dart';
 import 'package:save_my_pin/pages/auth/members.dart';
 import 'package:save_my_pin/pages/auth/profile.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         Register.routeName: (context) => const Register(),
         Login.routeName: (context) => const Login(),
         Profile.routeName: (context) => Profile(),
-        Members.routeName: (context) => Members(),
+        Members.routeName: (context) => const Members(),
+        Access.routeName: (context) => const Access(),
       },
     );
   }
