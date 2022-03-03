@@ -32,6 +32,7 @@ dependencies:
   splashscreen:
   material_dialogs: ^1.1.1
   animate_icons: ^2.0.0
+  flutter_tags: ^0.4.9+1
 
 
   # The following adds the Cupertino Icons font to your application.

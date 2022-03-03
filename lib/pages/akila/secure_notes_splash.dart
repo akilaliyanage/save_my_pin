@@ -13,7 +13,7 @@ class secure_notes_splash extends StatelessWidget {
       navigateAfterSeconds: secure_notes_home(),
       title: const Text('Secure Notes',textScaleFactor: 2,),
       image: Image.asset('assets/images/secure_note.gif'),
-      loadingText: const Text("Loading"),
+      loadingText: const Text("Loading your all secure notes, Please Wait!!"),
       photoSize: 100.0,
       loaderColor: Colors.blue,
     );
