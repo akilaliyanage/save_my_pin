@@ -90,13 +90,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  flutter_tags:
-    dependency: "direct main"
-    description:
-      name: flutter_tags
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.9+1"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -139,6 +132,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.2"
+  flutter_tags:
+    dependency: "direct main"
+    description:
+      name: flutter_tags
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.9+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
