@@ -6,7 +6,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import '../../auth/Auth.dart';
 import '../../models/User.dart';
+import '../../utils/connection.dart';
 
 class Login extends StatefulWidget {
   static const String routeName = '/login';
@@ -21,6 +23,49 @@ class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static final storage = new FlutterSecureStorage();
   User user = User('', '', '', '');
+
+  Future login() async {
+    var res = await http.post(Uri.parse(Connection.baseUrl + "/user/login"),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(
+            <String, String>{'email': user.email, 'password': user.password}));
+    var result = await jsonDecode(res.body);
+    if (result['status'] == 200) {
+      var userID = result['user']['_id'];
+      await Auth.rememberUser(userID);
+      showTopSnackBar(
+        context,
+        CustomSnackBar.success(
+          message: "Successfilly Logged In",
+        ),
+      );
+      Navigator.pushNamed(context, '/access');
+    } else if (result['status'] == 401) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message:
+              "Incorrect email or password. Please check your credentials and try again",
+        ),
+      );
+    } else if (result['status'] == 404) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "User does not exist!",
+        ),
+      );
+    } else {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Something went wrong!",
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +205,7 @@ class _LoginState extends State<Login> {
                     hoverColor: Colors.blue,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // save();
+                        login();
                       }
                     },
                     child:

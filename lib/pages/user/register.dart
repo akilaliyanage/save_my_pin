@@ -7,6 +7,7 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../models/User.dart';
+import '../../utils/connection.dart';
 
 class Register extends StatefulWidget {
   static const String routeName = '/register';
@@ -20,6 +21,45 @@ class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static final storage = new FlutterSecureStorage();
   User user = User('', '', '', '');
+
+  Future save() async {
+    var res = await http.post(Uri.parse(Connection.baseUrl + "/user/register"),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{
+          'email': user.email,
+          'username': user.username,
+          'access_code': user.accessCode,
+          'password': user.password
+        }));
+    var result = jsonDecode(res.body);
+    print(result['status']);
+    if (result['status'] == 201) {
+      await storage.write(key: "email", value: user.email);
+      showTopSnackBar(
+        context,
+        CustomSnackBar.success(
+          message: "Successfilly Registered!",
+        ),
+      );
+      Navigator.pushNamed(context, '/login');
+    } else if (result['status'] == 401) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "User Already exist!",
+        ),
+      );
+    } else {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Something went rong!",
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +262,7 @@ class _RegisterState extends State<Register> {
                     hoverColor: Colors.blue,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // save();
+                        save();
                       }
                     },
                     child:
