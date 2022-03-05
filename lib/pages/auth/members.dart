@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:save_my_pin/pages/auth/login.dart';
 
 class Members extends StatefulWidget {
   static const String routeName = '/members';
@@ -22,6 +23,13 @@ class _MembersState extends State<Members> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(Login.routeName);
+              },
+              icon: Icon(Icons.shopping_cart))
+        ],
       ),
       body: Column(
         children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:save_my_pin/pages/auth/services.dart';
+import 'package:save_my_pin/pages/auth/login.dart';
 
 class Access extends StatefulWidget {
   static const String routeName = '/access';
@@ -17,18 +18,25 @@ class _AccessState extends State<Access> {
         name: "Secure Notes"),
     Service(
         image:
-            "https://images.unsplash.com/photo-1634979149798-e9a118734e93?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80",
+            "https://thumbs.dreamstime.com/b/data-protection-cyber-security-privacy-business-internet-technology-concept-97070175.jpg",
         name: "Secure Pin"),
     Service(
         image:
-            "https://images.unsplash.com/photo-1609429019995-8c40f49535a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80",
+            "https://t3.ftcdn.net/jpg/02/22/85/00/360_F_222850000_8nml6uLzmekcXvWxUSUCHZtZ7n8NWMCV.jpg",
         name: "Secure Cards"),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: new Text('Logout'),
+        title: new Text('Save My Pin'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(Login.routeName);
+              },
+              icon: Icon(Icons.logout))
+        ],
       ),
       body: Column(
         children: [
@@ -41,26 +49,39 @@ class _AccessState extends State<Access> {
                   return GestureDetector(
                     onTap: () => showDialog(
                         context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                              title: Text('Test'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(context, 'Cancel'),
-                                  child: const Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            )),
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Access Key'),
+                            content: TextField(
+                              onChanged: (value) {
+                                //  setState(() {
+                                //    valueText = value;
+                                //  });
+                              },
+                              decoration: const InputDecoration(
+                                  hintText: "Insert Your Access Key"),
+                            ),
+                            actions: <Widget>[
+                              FlatButton(
+                                color: Colors.green,
+                                textColor: Colors.white,
+                                child: const Text('OK'),
+                                onPressed: () {
+                                  setState(() {
+                                    //codeDialog = valueText;
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                            ],
+                          );
+                        }),
                     child: SizedBox(
                       width: double.infinity,
                       height: 200,
                       child: Card(
                         elevation: 10,
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
                         semanticContainer: true,
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         child: Container(
@@ -71,10 +92,14 @@ class _AccessState extends State<Access> {
                               alignment: Alignment.topCenter,
                             ),
                           ),
-                          child: Text(item.name,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(item.name,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25)),
+                          ),
                         ),
                       ),
                     ),
