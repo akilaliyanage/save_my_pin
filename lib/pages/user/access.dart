@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:save_my_pin/pages/auth/services.dart';
-import 'package:save_my_pin/pages/auth/login.dart';
+import 'package:save_my_pin/models/services.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:save_my_pin/pages/user/login.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/tap_bounce_container.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import '../../auth/Auth.dart';
+import '../../models/User.dart';
+import '../../utils/connection.dart';
+
+import '../../models/User.dart';
 
 class Access extends StatefulWidget {
   static const String routeName = '/access';
@@ -11,20 +23,51 @@ class Access extends StatefulWidget {
 }
 
 class _AccessState extends State<Access> {
-  final List<Service> entries = <Service>[
-    Service(
-        image:
-            "https://images.unsplash.com/photo-1619972898592-5de4b1c68025?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80",
-        name: "Secure Notes"),
-    Service(
-        image:
-            "https://thumbs.dreamstime.com/b/data-protection-cyber-security-privacy-business-internet-technology-concept-97070175.jpg",
-        name: "Secure Pin"),
-    Service(
-        image:
-            "https://t3.ftcdn.net/jpg/02/22/85/00/360_F_222850000_8nml6uLzmekcXvWxUSUCHZtZ7n8NWMCV.jpg",
-        name: "Secure Cards"),
-  ];
+  User user = User('', '', '', '');
+
+  Future validate(route) async {
+    var res = await http.post(Uri.parse(Connection.baseUrl + "/user/access"),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{'access_code': user.accessCode}));
+    var result = await jsonDecode(res.body);
+    if (result['status'] == 200) {
+      var userId = result['user']['_id'];
+      var userType = result['user']['userType'];
+      await Auth.saveTempUser(userId, userType);
+
+      showTopSnackBar(
+        context,
+        CustomSnackBar.success(
+          message: "Access granted",
+        ),
+      );
+      Navigator.pushNamed(context, route);
+    } else if (result['status'] == 401) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Access Denied",
+        ),
+      );
+    } else if (result['status'] == 404) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "User does not exist!",
+        ),
+      );
+    } else {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Something went wrong!",
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +86,9 @@ class _AccessState extends State<Access> {
           Flexible(
             flex: 8,
             child: ListView.builder(
-                itemCount: entries.length,
+                itemCount: appServices.length,
                 itemBuilder: (context, index) {
-                  Service item = entries.elementAt(index);
+                  Service item = appServices.elementAt(index);
                   return GestureDetector(
                     onTap: () => showDialog(
                         context: context,
@@ -54,9 +97,9 @@ class _AccessState extends State<Access> {
                             title: Text('Access Key'),
                             content: TextField(
                               onChanged: (value) {
-                                //  setState(() {
-                                //    valueText = value;
-                                //  });
+                                setState(() {
+                                  user.accessCode = value;
+                                });
                               },
                               decoration: const InputDecoration(
                                   hintText: "Insert Your Access Key"),
@@ -68,7 +111,7 @@ class _AccessState extends State<Access> {
                                 child: const Text('OK'),
                                 onPressed: () {
                                   setState(() {
-                                    //codeDialog = valueText;
+                                    validate(item.routePath);
                                     Navigator.pop(context);
                                   });
                                 },

@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
       let email = req.body.email;
       let access_code = req.body.access_code;
       let password = req.body.password;
-      let user_type = req.body.user_type;
+      let user_type = "accountManager";
   
       const salt = await bcrypt.genSalt();
       const hashedPassword = await bcrypt.hash(password, salt);

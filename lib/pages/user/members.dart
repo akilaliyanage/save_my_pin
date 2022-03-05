@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:save_my_pin/pages/auth/login.dart';
+import 'package:save_my_pin/pages/user/login.dart';
 
 class Members extends StatefulWidget {
   static const String routeName = '/members';
