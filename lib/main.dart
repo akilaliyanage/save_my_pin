@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:save_my_pin/pages/akila/secure_notes_home.dart';
 import 'package:save_my_pin/pages/akila/secure_notes_splash.dart';
+import 'package:save_my_pin/pages/auth/access.dart';
 import 'package:save_my_pin/pages/auth/login.dart';
+import 'package:save_my_pin/pages/auth/members.dart';
+import 'package:save_my_pin/pages/auth/profile.dart';
 import 'package:save_my_pin/pages/auth/register.dart';
 import 'package:save_my_pin/pages/pwds/secure_pwd.dart';
 
@@ -16,13 +19,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/secPwdSplash',
+
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/secureSplash',
       routes: {
         '/secureSplash': (context) => const secure_notes_splash(),
         '/secureNotesHome': (context) => secure_notes_home(),
         '/secPwdSplash': (context) => secure_pwd_splash(),
-        Register.routeName: (context) => Register(),
-        Login.routeName: (context) => Login(),
+        Register.routeName: (context) => const Register(),
+        Login.routeName: (context) => const Login(),
+        Profile.routeName: (context) => Profile(),
+        Members.routeName: (context) => const Members(),
+        Access.routeName: (context) => const Access(),
       },
     );
   }
