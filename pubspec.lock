@@ -249,7 +249,11 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     version: "1.8.0"
+=======
+    version: "1.8.1"
+>>>>>>> 1ec176fe23925df770ec717c7dcfeaed35588c84
 =======
     version: "1.8.1"
 >>>>>>> 1ec176fe23925df770ec717c7dcfeaed35588c84
@@ -350,7 +354,11 @@ packages:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     version: "2.1.1"
+=======
+    version: "2.1.2"
+>>>>>>> 1ec176fe23925df770ec717c7dcfeaed35588c84
 =======
     version: "2.1.2"
 >>>>>>> 1ec176fe23925df770ec717c7dcfeaed35588c84
