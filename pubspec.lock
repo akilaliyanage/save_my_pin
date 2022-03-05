@@ -246,11 +246,7 @@ packages:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "1.8.0"
-=======
     version: "1.8.1"
->>>>>>> 1ec176fe23925df770ec717c7dcfeaed35588c84
   petitparser:
     dependency: transitive
     description:
@@ -339,11 +335,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "2.1.1"
-=======
     version: "2.1.2"
->>>>>>> 1ec176fe23925df770ec717c7dcfeaed35588c84
   xml:
     dependency: transitive
     description:
