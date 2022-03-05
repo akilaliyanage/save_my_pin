@@ -28,7 +28,7 @@ class _MembersState extends State<Members> {
               onPressed: () {
                 Navigator.of(context).pushNamed(Login.routeName);
               },
-              icon: Icon(Icons.shopping_cart))
+              icon: Icon(Icons.logout))
         ],
       ),
       body: Column(
