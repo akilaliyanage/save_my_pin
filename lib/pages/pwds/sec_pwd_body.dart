@@ -16,11 +16,7 @@ class Body extends StatelessWidget {
         children: <Widget>[
           PwdHeader(size: size),
           PasswordList(),
-          // TitleWithMoreBtn(title: "Recomended", press: () {}),
-          // RecomendsPlants(),
-          // TitleWithMoreBtn(title: "Featured Plants", press: () {}),
-          // FeaturedPlants(),
-          // SizedBox(height: kDefaultPadding),
+          
         ],
       ),
     );

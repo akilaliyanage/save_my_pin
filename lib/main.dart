@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/login',
+
       routes: {
         '/secureSplash': (context) => const secure_notes_splash(),
         '/secureNotesHome': (context) => secure_notes_home(),

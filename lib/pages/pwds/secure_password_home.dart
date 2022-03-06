@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:save_my_pin/pages/pwds/sec_pwd_body.dart';
 
+import 'add_new/add_new_pwd.dart';
 import 'constants.dart';
 
 class secure_password_home extends StatefulWidget {
@@ -19,7 +20,12 @@ class _secure_password_homeState extends State<secure_password_home> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         backgroundColor: kPrimaryColor,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => add_new_pwd()),
+          );
+        },
       ),
       // bottomNavigationBar: MyBottomNavBar(),
     );
