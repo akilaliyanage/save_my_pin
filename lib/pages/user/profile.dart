@@ -15,6 +15,8 @@ import '../../utils/connection.dart';
 
 class Profile extends StatefulWidget {
   static const String routeName = '/profile';
+
+  Profile({Key? key}) : super(key: key);
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -23,11 +25,10 @@ class _ProfileState extends State<Profile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int currentIndex = 1;
   final storage = new FlutterSecureStorage();
-  // User user = User('', '', '', '', '');
-  String userName = "";
-  String email = "";
-  String oldAccessKey = "";
-  String newAccessKey = "";
+  //User user = User('', '', '', '');
+  String username = Auth.user.username;
+  String old_access_key = "";
+  String new_access_key = "";
   String old_password = "";
   String new_password = "";
 
@@ -40,7 +41,7 @@ class _ProfileState extends State<Profile> {
           'Content-Type': 'application/json;charSet=UTF-8'
         },
         body: jsonEncode(<String, String>{
-          'username': userName,
+          'username': username,
         }));
     var result = jsonDecode(res.body);
     if (result['status'] == 200) {
@@ -96,13 +97,49 @@ class _ProfileState extends State<Profile> {
       );
   }
 
+  Future updateAccessCode() async {
+    var id = await Auth.getUserId();
+    var res = await http.put(
+        Uri.parse(Connection.baseUrl + "/user/update_access_code/" + id),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{
+          'old_access_code': old_access_key,
+          'new_access_code': new_access_key
+        }));
+    var result = jsonDecode(res.body);
+    if (result['status'] == 200) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.success(
+          message: "{Access key Changed successfully}",
+        ),
+      );
+      Navigator.pushNamed(context, '/profile');
+    } else if (result['status'] == 401) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Access key Mismatched!",
+        ),
+      );
+    } else
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Something went wrong!",
+        ),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: FutureBuilder(
-            future: null,
+            future: Auth.view(),
             builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
               if (snapshot.hasData) {
                 return Container(
@@ -129,12 +166,12 @@ class _ProfileState extends State<Profile> {
                                       flex: 1,
                                       child: GestureDetector(
                                         child: Image.asset(
-                                          'assets/images/logo.png',
+                                          'assets/images/home_icon.png',
                                           width: 1,
                                         ),
                                         onTap: () => {
                                           Navigator.pushNamed(
-                                              context, '/profile')
+                                              context, '/access')
                                         },
                                       ),
                                     ),
@@ -211,10 +248,11 @@ class _ProfileState extends State<Profile> {
                                                         child: TextFormField(
                                                           controller:
                                                               TextEditingController(
-                                                                  text:
-                                                                      userName),
+                                                                  text: Auth
+                                                                      .user
+                                                                      .username),
                                                           onChanged: (value) {
-                                                            userName = value;
+                                                            username = value;
                                                           },
                                                           validator:
                                                               (String? value) {
@@ -258,7 +296,7 @@ class _ProfileState extends State<Profile> {
                                                           if (_formKey
                                                               .currentState!
                                                               .validate()) {
-                                                            // update();
+                                                            update();
                                                           }
                                                         },
                                                         child: const Text(
@@ -377,7 +415,7 @@ class _ProfileState extends State<Profile> {
                                                         minWidth: 200.0,
                                                         hoverColor: Colors.blue,
                                                         onPressed: () {
-                                                          // updatePassword();
+                                                          updatePassword();
                                                         },
                                                         child: const Text(
                                                             'Reset ',
@@ -428,7 +466,7 @@ class _ProfileState extends State<Profile> {
                                                           controller:
                                                               TextEditingController(),
                                                           onChanged: (value) {
-                                                            old_password =
+                                                            old_access_key =
                                                                 value;
                                                           },
                                                           decoration:
@@ -463,7 +501,7 @@ class _ProfileState extends State<Profile> {
                                                           controller:
                                                               TextEditingController(),
                                                           onChanged: (value) {
-                                                            new_password =
+                                                            new_access_key =
                                                                 value;
                                                           },
                                                           decoration:
@@ -496,7 +534,7 @@ class _ProfileState extends State<Profile> {
                                                         minWidth: 200.0,
                                                         hoverColor: Colors.blue,
                                                         onPressed: () {
-                                                          // updatePassword();
+                                                          updateAccessCode();
                                                         },
                                                         child: const Text(
                                                             'Reset ',
