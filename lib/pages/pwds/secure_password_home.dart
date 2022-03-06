@@ -16,6 +16,11 @@ class _secure_password_homeState extends State<secure_password_home> {
     return Scaffold(
       appBar: buildAppBar(),
       body: Body(),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        backgroundColor: kPrimaryColor,
+        onPressed: () {},
+      ),
       // bottomNavigationBar: MyBottomNavBar(),
     );
   }
@@ -30,5 +35,12 @@ class _secure_password_homeState extends State<secure_password_home> {
       // ),
     );
   }
-  
+
+  int _counter = 0;
+
+  void incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
 }
