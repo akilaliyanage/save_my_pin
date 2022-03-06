@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:save_my_pin/pages/pwds/list_container.dart';
 import 'package:save_my_pin/pages/pwds/pwd_header.dart';
 import 'constants.dart';
 
@@ -14,6 +15,7 @@ class Body extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           PwdHeader(size: size),
+          PasswordList(),
           // TitleWithMoreBtn(title: "Recomended", press: () {}),
           // RecomendsPlants(),
           // TitleWithMoreBtn(title: "Featured Plants", press: () {}),
