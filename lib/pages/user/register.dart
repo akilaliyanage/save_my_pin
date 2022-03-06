@@ -20,7 +20,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static final storage = new FlutterSecureStorage();
-  User user = User('', '', '', '');
+  User user = User('', '', '', '', '');
 
   Future save() async {
     var res = await http.post(Uri.parse(Connection.baseUrl + "/user/register"),
@@ -190,6 +190,7 @@ class _RegisterState extends State<Register> {
                                     elevation: 5.0,
                                     borderRadius: BorderRadius.circular(25),
                                     child: TextFormField(
+                                      obscureText: true,
                                       controller: TextEditingController(
                                           text: user.password),
                                       onChanged: (value) {

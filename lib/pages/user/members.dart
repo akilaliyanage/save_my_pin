@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:save_my_pin/pages/user/login.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/tap_bounce_container.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import '../../auth/Auth.dart';
+import '../../models/User.dart';
+import '../../utils/connection.dart';
 
 class Members extends StatefulWidget {
   static const String routeName = '/members';
@@ -11,13 +21,102 @@ class Members extends StatefulWidget {
 
 class _MembersState extends State<Members> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final List<String> entries = <String>[
-    'Member 01',
-    'Member 02',
-    'Member 03',
-    'Member 04'
-  ];
-  final List<int> colorCodes = <int>[600, 500, 100];
+  static final storage = new FlutterSecureStorage();
+  User user = User('', '', '', '', '');
+  String username = "";
+  String access_key = "";
+
+  late List<User> members = [];
+  late String _groupId;
+
+  Future getUsers() async {
+    final String groupId = await Auth.getGroupId();
+    setState(() {
+      _groupId = groupId;
+    });
+    var res = await http.get(
+        Uri.parse(Connection.baseUrl + "/user/group/" + _groupId),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        }).then((response) {
+      var result = jsonDecode(response.body);
+      setState(() {
+        Iterable list = json.decode(response.body);
+        members = list.map((model) => User.fromJson(model)).toList();
+      });
+    });
+  }
+
+  Future addMember() async {
+    var adminId = await Auth.getUserId();
+    var res = await http.post(
+        Uri.parse(Connection.baseUrl + "/user/add_member"),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{
+          'username': username,
+          'access_code': access_key,
+          'admin': adminId
+        }));
+    var result = jsonDecode(res.body);
+    if (result['status'] == 201) {
+      showTopSnackBar(
+        context,
+        const CustomSnackBar.success(
+          message: "New Member Added!",
+        ),
+      );
+      Navigator.pushNamed(context, '/members');
+    } else if (result['status'] == 401) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Member Already exist!",
+        ),
+      );
+    } else {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Something went rong!",
+        ),
+      );
+    }
+  }
+
+  Future removeMember(id) async {
+    var res = await http.delete(
+        Uri.parse(Connection.baseUrl + "/user/remove_member/" + id),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        });
+    var result = jsonDecode(res.body);
+    if (result['status'] == 200) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.success(
+          message: "Member Removed!",
+        ),
+      );
+      getUsers();
+      Navigator.pushNamed(context, '/members');
+    } else {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Something went rong!",
+        ),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUsers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,18 +136,20 @@ class _MembersState extends State<Members> {
               flex: 5,
               child: ListView.separated(
                 padding: const EdgeInsets.all(5),
-                itemCount: entries.length,
+                itemCount: members.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
                     elevation: 8,
                     child: ListTile(
-                      title: Text('${entries[index]}'),
+                      title: Text(members[index].username),
                       trailing: IconButton(
                         icon: const Icon(
                           Icons.delete,
                           color: Colors.red,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          removeMember(members[index].id);
+                        },
                       ),
                     ),
                   );
@@ -99,7 +200,7 @@ class _MembersState extends State<Members> {
                                                     TextEditingController(
                                                         text: ""),
                                                 onChanged: (value) {
-                                                  // user.email = value;
+                                                  username = value;
                                                 },
                                                 validator: (String? value) {
                                                   if (value!.isEmpty) {
@@ -131,7 +232,7 @@ class _MembersState extends State<Members> {
                                                     TextEditingController(
                                                         text: ""),
                                                 onChanged: (value) {
-                                                  // user.password = value;
+                                                  access_key = value;
                                                 },
                                                 validator: (String? value) {
                                                   if (value!.isEmpty) {
@@ -169,7 +270,7 @@ class _MembersState extends State<Members> {
                               hoverColor: Colors.blue,
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  // save();
+                                  addMember();
                                 }
                               },
                               child: Text('Add',

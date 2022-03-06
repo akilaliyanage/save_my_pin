@@ -23,15 +23,20 @@ class Access extends StatefulWidget {
 }
 
 class _AccessState extends State<Access> {
-  User user = User('', '', '', '');
+  User user = User('', '', '', '', '');
 
   Future validate(route) async {
+    var groupId = await Auth.getGroupId();
     var res = await http.post(Uri.parse(Connection.baseUrl + "/user/access"),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },
-        body: jsonEncode(<String, String>{'access_code': user.accessCode}));
+        body: jsonEncode(<String, String>{
+          'access_code': user.accessCode,
+          'group': groupId
+        }));
     var result = await jsonDecode(res.body);
+    print(groupId);
     if (result['status'] == 200) {
       var userId = result['user']['_id'];
       var userType = result['user']['userType'];
