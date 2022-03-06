@@ -22,7 +22,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static final storage = new FlutterSecureStorage();
-  User user = User('', '', '', '');
+  User user = User('', '', '', '', '');
 
   Future login() async {
     var res = await http.post(Uri.parse(Connection.baseUrl + "/user/login"),
@@ -33,15 +33,18 @@ class _LoginState extends State<Login> {
             <String, String>{'email': user.email, 'password': user.password}));
     var result = await jsonDecode(res.body);
     if (result['status'] == 200) {
+      print(result['user']);
       var userID = result['user']['_id'];
-      await Auth.rememberUser(userID);
+      var groupID = result['user']['group'];
+      print(groupID);
+      await Auth.rememberUser(userID, groupID);
       showTopSnackBar(
         context,
         CustomSnackBar.success(
           message: "Successfilly Logged In",
         ),
       );
-      Navigator.pushNamed(context, '/access');
+      Navigator.pushNamed(context, '/profile');
     } else if (result['status'] == 401) {
       showTopSnackBar(
         context,
@@ -165,6 +168,7 @@ class _LoginState extends State<Login> {
                                     elevation: 5.0,
                                     borderRadius: BorderRadius.circular(25),
                                     child: TextFormField(
+                                      obscureText: true,
                                       controller: TextEditingController(
                                           text: user.password),
                                       onChanged: (value) {

@@ -43,7 +43,13 @@ router.post("/register", async (req, res) => {
           admin:  admin,
         });
       group.save().then(data => {
-          res.json({ status: 201, message: "New Account created" });
+        const updateUser = {
+          group: data._id,
+        };
+         User.findByIdAndUpdate(admin._id, updateUser).then((user) => {
+           res.json({ status: 201, message: "New Account created" });
+        });
+
       });
 
     }
@@ -52,8 +58,10 @@ router.post("/register", async (req, res) => {
   //Add new member
 router.post("/add_member", async (req, res) => {
 
+  const admin = await User.findById(req.body.admin);
+
     const group = await Group.findOne({ 
-        admin: req.body.admin,
+        admin: admin,
     });
 
     const accessCode =  req.body.access_code;
@@ -148,9 +156,10 @@ router.get("/group/:id", async (req, res) => {
 
     const members = await User.find({
       group: group,
+      userType: "member"
     });
 
-      res.json({ status: 200, members: members });
+      res.json(members );
 
   } catch (err) {
     res.json({ error: err });
@@ -160,7 +169,7 @@ router.get("/group/:id", async (req, res) => {
 //remove group member
 router.delete("/remove_member/:id", async (req, res) => {
   try {
-    await User.findOneAndDelete(req.params.id).then(() => {
+    await User.findOneAndDelete({_id: req.params.id, userType: "member" }).then(() => {
       res.json({ status: 200, message: "Member Removed" });
     })
   } catch (err) {
@@ -225,7 +234,7 @@ router.put("/update_password/:id", async (req, res) => {
 });
 
 //update password
-router.put("/update_access/:id", async (req, res) => {
+router.put("/update_access_code/:id", async (req, res) => {
 
   try{
 
@@ -239,7 +248,7 @@ router.put("/update_access/:id", async (req, res) => {
       let accessCode = req.body.new_access_code;
 
       const salt = await bcrypt.genSalt();
-      const hash = await bcrypt.hash(password, salt);
+      const hash = await bcrypt.hash(accessCode, salt);
 
       updateUser = {
         accessCode: hash,
@@ -259,7 +268,22 @@ router.put("/update_access/:id", async (req, res) => {
 
 });
 
+//View User Profile
+router.get("/:id", async (req, res) => {
+  try {
 
+    let userID = req.params.id;
+    const user = await User.findOne({ _id:userID });
+
+    if (user) {
+      res.json({ status: 200, user: user});
+    } else {
+      res.json({ status: 404, message: "user does not exist." });
+    }
+  } catch (err) {
+    res.json({ error: err });
+  }
+});
 
 
 async function isMemberExisting(members, accessCode) {
