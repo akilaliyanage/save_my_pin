@@ -75,6 +75,7 @@ flutter:
     - assets/images/logo.png
     - assets/images/logo_lock.png
     - assets/images/home_icon.png
+    - assets/images/menu.png
     - assets/images/green_lock.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:save_my_pin/pages/pwds/Pwd_nav_bar_custom.dart';
 import 'package:save_my_pin/pages/pwds/sec_pwd_body.dart';
 
 import 'add_new/add_new_pwd.dart';
@@ -16,6 +17,7 @@ class _secure_password_homeState extends State<secure_password_home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
+      drawer: const PwdnavBarCustom(),
       body: Body(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -34,6 +36,15 @@ class _secure_password_homeState extends State<secure_password_home> {
   AppBar buildAppBar() {
     return AppBar(
       elevation: 0,
+      // leading: IconButton(
+      //   icon: Image.asset("assets/images/menu.png"),
+      //   onPressed: () {
+      //     // Navigator.push(
+      //     //   context,
+      //     //   MaterialPageRoute(builder: (context) => PwdnavBarCustom()),
+      //     // );
+      //   },
+      // ),
       backgroundColor: kPrimaryColor,
       // leading: IconButton(
       //   icon: Icons.menu
