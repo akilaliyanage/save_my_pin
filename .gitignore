@@ -48,3 +48,4 @@ app.*.map.json
 
 #BE configs
 /save_my_pin_be/node_modules
+.vscode/launch.json
