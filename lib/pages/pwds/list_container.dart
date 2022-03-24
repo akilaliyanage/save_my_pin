@@ -9,7 +9,7 @@ import 'constants.dart';
 class PasswordList extends StatelessWidget {
   PasswordList({Key? key}) : super(key: key);
 
-  HttpServicePassword _httpServicePassword = HttpServicePassword();
+  final HttpServicePassword _httpServicePassword =  HttpServicePassword();
 
   @override
   Widget build(BuildContext context) {
@@ -130,12 +130,13 @@ Widget passwordCard(BuildContext context, String website, String username,
                         ],
                       ),
                       Column(
+                        // ignore: prefer_const_literals_to_create_immutables
                         children: [
                           // Icon(
                           //   Icons.edit,
                           //   color: Colors.blue,
                           // ),
-                          Icon(
+                          const Icon(
                             Icons.delete,
                             color: Color.fromARGB(255, 236, 153, 152),
                           )

@@ -6,11 +6,15 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:save_my_pin/models/SecurePassword.dart';
 
 class HttpServicePassword {
-  final String getUrl = "http://" + FlutterConfig.get('IP') + ":8000/product";
+  //final String getUrl = "http://" + FlutterConfig.get('IP') + ":8000/product";
 
   Future<List<Password>> getPasswords(String userId) async {
-    Response res = await get(Uri.parse(
-        "http://" + FlutterConfig.get('IP') + ":8090/secPwd/get-pwd/" + userId));
+    log(userId);
+
+    Response res =
+        await get(Uri.parse("http://localhost:8090/secPwd/get-pwd/" + userId));
+
+    log(res.toString());
     if (res.statusCode == 200) {
       log(res.body);
       List<dynamic> body = jsonDecode(res.body);
