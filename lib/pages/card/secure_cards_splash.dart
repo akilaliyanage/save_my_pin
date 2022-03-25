@@ -60,7 +60,7 @@ class secure_cards_splash extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Loading your all secure notes, Please Wait!!",
+                      "Loading your all secure cards, Please Wait!!",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 15.0
