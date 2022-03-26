@@ -36,10 +36,20 @@ class _CreditCardState extends State<CreditCard> {
             onCreditCardWidgetChange: (CreditCardBrand ) {  },
           ),
           SingleChildScrollView(
-            child: CardForm(cardNumber:cardNo , expiryDate:expDate , cardHolderName:holderName , cvvCode:cvv, isCvvFocused:isCvvFocused),
+            child: CardForm(cardNumber:cardNo , expiryDate:expDate , cardHolderName:holderName , cvvCode:cvv, isCvvFocused:isCvvFocused, onFormDataChange:onCreditCardModelChange),
           )
         ],
       ),
     );
+  }
+
+  void onCreditCardModelChange(CreditCardModel? creditCardModel){
+    setState(() {
+      cardNo = creditCardModel!.cardNumber;
+      expDate = creditCardModel.expiryDate;
+      holderName = creditCardModel.cardHolderName;
+      cvv = creditCardModel.cvvCode;
+      isCvvFocused = creditCardModel.isCvvFocused;
+    });
   }
 }

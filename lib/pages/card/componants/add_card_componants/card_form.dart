@@ -11,8 +11,8 @@ class CardForm extends StatefulWidget {
   String? cardHolderName;
   String? cvvCode;
   bool? isCvvFocused;
-
-  CardForm({Key? key, this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused}) : super(key: key);
+  final onFormDataChange;
+  CardForm({Key? key, this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.onFormDataChange}) : super(key: key);
   @override
   _CardFormState createState() => _CardFormState(cardNumber, expiryDate, cardHolderName, cvvCode, isCvvFocused);
 }
@@ -178,12 +178,6 @@ class _CardFormState extends State<CardForm> {
     );
   }
   void onCreditCardModelChange(CreditCardModel? creditCardModel){
-    setState(() {
-      cardNumber = creditCardModel!.cardNumber;
-      expiryDate = creditCardModel.expiryDate;
-      cardHolderName = creditCardModel.cardHolderName;
-      cvvCode = creditCardModel.cvvCode;
-      isCvvFocused = creditCardModel.isCvvFocused;
-    });
+    widget.onFormDataChange(creditCardModel);
   }
 }
