@@ -12,7 +12,7 @@ class CardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: kDefaultPadding * 2),
+      margin: const EdgeInsets.only(bottom: 10.0),
       // It will cover 20% of our total height
       height: size.height * 0.1,
       child: Stack(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../basic_componants/card_header.dart';
+import 'credit_card.dart';
 
 
 class AddCardBody extends StatelessWidget {
@@ -13,7 +14,7 @@ class AddCardBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           CardHeader(size: size),
-
+          CreditCard(),
         ],
       ),
     );

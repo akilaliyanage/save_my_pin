@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
+import 'card_form.dart';
+
 class CreditCard extends StatefulWidget {
   @override
   _CreditCardState createState() => _CreditCardState();
@@ -16,7 +18,7 @@ class _CreditCardState extends State<CreditCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SafeArea(
       child: Column(
         children: [
           CreditCardWidget(
@@ -32,12 +34,12 @@ class _CreditCardState extends State<CreditCard> {
             backgroundImage: 'assets/images/back7.jpg',
             isSwipeGestureEnabled: true,
             onCreditCardWidgetChange: (CreditCardBrand ) {  },
-
-
           ),
-          
+          SingleChildScrollView(
+            child: CardForm(cardNumber:cardNo , expiryDate:expDate , cardHolderName:holderName , cvvCode:cvv, isCvvFocused:isCvvFocused),
+          )
         ],
-      )
+      ),
     );
   }
 }
