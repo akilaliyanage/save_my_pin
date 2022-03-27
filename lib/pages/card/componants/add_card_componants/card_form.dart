@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:flutter_credit_card/credit_card_form.dart';
+import 'package:flutter_credit_card/credit_card_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:save_my_pin/models/CreditCard.dart';
+import 'package:save_my_pin/api/http_service_cards.dart';
 
+import '../../../../auth/Auth.dart';
 import '../../../pwds/constants.dart';
 import '../../providers/device_provider.dart';
 
@@ -11,8 +16,10 @@ class CardForm extends StatefulWidget {
   String? cardHolderName;
   String? cvvCode;
   bool? isCvvFocused;
-
-  CardForm({Key? key, this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused}) : super(key: key);
+  // ignore: prefer_typing_uninitialized_variables
+  final onFormDataChange;
+  HttpServiceCard service = HttpServiceCard();
+  CardForm({Key? key, this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.onFormDataChange}) : super(key: key);
   @override
   _CardFormState createState() => _CardFormState(cardNumber, expiryDate, cardHolderName, cvvCode, isCvvFocused);
 }
@@ -23,10 +30,14 @@ class _CardFormState extends State<CardForm> {
   String? cardHolderName;
   String? cvvCode;
   bool? isCvvFocused;
+  int? pin;
+  int? confirmPin;
   OutlineInputBorder? border;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   _CardFormState(this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused);
+
+  get service => null;
 
 
   @override
@@ -95,6 +106,7 @@ class _CardFormState extends State<CardForm> {
                 children: [
                   Expanded(
                       child: TextFormField(
+                        keyboardType: TextInputType.number,
                         obscureText: true,
                         decoration: const InputDecoration(
                           focusedBorder: OutlineInputBorder(
@@ -111,10 +123,13 @@ class _CardFormState extends State<CardForm> {
                           ),
                           labelText: "Pin",
                         ),
-                        validator: (String? value){
-                          if(value == Null || value!.trim().isEmpty){
-                            return "Pin number cannot be empty";
+                        onChanged: (String? value){
+                          if(value != null && value != ''){
+                            setState(() {
+                              pin = int.parse(value);
+                            });
                           }
+
                         },
                       )
                   ),
@@ -143,6 +158,13 @@ class _CardFormState extends State<CardForm> {
                           ),
                           labelText: "Confirm Pin",
                         ),
+                        onChanged: (String? value){
+                          if(value != null && value != ''){
+                            setState(() {
+                              confirmPin = int.parse(value);
+                            });
+                          }
+                        },
                       )
                   ),
                 ],
@@ -158,7 +180,47 @@ class _CardFormState extends State<CardForm> {
                   ),
                   primary: kPrimaryColor2
                 ),
-                  onPressed: (){
+                  onPressed: () async {
+                  if(!formKey.currentState!.validate()){
+                    Fluttertoast.showToast(
+                        msg: "Invalid Card Details!",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.TOP,
+                        timeInSecForIosWeb: 2,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0
+                    );
+                  }
+                  // ignore: unrelated_type_equality_checks
+                  else if(pin == null || pin == ''){
+                    Fluttertoast.showToast(
+                        msg: "Pin cannot be empty",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.TOP,
+                        timeInSecForIosWeb: 2,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0
+                    );
+                  }
+                  else if(pin != confirmPin){
+                    Fluttertoast.showToast(
+                        msg: "Pin and Confirm Pin should match",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.TOP,
+                        timeInSecForIosWeb: 2,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0
+                    );
+                  }
+                  else{
+                    CreditCard card = CreditCard(cardNumber: cardNumber!, expiryDate: expiryDate!, cardHolderName: cardHolderName!, cvvCode: int.parse(cvvCode!), pinNo: pin!, cardType: "VISA");
+                    HttpServiceCard service = HttpServiceCard();
+                    var adminId = await Auth.getUserId();
+                    await service.addCard(card , adminId);
+                  }
 
                   },
                   child: Container(
@@ -183,7 +245,7 @@ class _CardFormState extends State<CardForm> {
       expiryDate = creditCardModel.expiryDate;
       cardHolderName = creditCardModel.cardHolderName;
       cvvCode = creditCardModel.cvvCode;
-      isCvvFocused = creditCardModel.isCvvFocused;
     });
+    widget.onFormDataChange(creditCardModel);
   }
 }

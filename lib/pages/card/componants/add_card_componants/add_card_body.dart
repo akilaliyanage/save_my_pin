@@ -13,7 +13,7 @@ class AddCardBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          CardHeader(size: size),
+          CardHeader(size: size, title: "Secure Cards", image: Image.asset("assets/images/creditCard.gif")),
           CreditCard(),
         ],
       ),
