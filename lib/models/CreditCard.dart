@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:save_my_pin/pages/card/componants/add_card_componants/credit_card.dart';
 
-class Card {
+class CreditCard {
   late String cardNumber;
   late String expiryDate ;
   late String cardHolderName;
@@ -8,7 +9,7 @@ class Card {
   late int pinNo;
   late String cardType;
 
-  Card({
+  CreditCard({
     required this.cardNumber,
     required this.expiryDate,
     required this.cardHolderName,
@@ -17,8 +18,8 @@ class Card {
     required this.cardType,
   });
 
-  factory Card.fromJson(Map<String, dynamic> json) {
-    return Card(
+  factory CreditCard.fromJson(Map<String, dynamic> json) {
+    return CreditCard(
         cardNumber: json['cardNumber'],
         expiryDate: json['expiryDate'],
         cardHolderName: json['cardHolderName'],
