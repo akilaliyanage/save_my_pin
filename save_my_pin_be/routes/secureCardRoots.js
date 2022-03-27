@@ -19,13 +19,16 @@ router.post("/add-card", async (req, res) => {
         const user = await User.findById(req.body.userId);
 
         if(user){
-            let cardNumber = req.body.cardNumber;
-            let expiryDate = req.body.expiryDate;
-            let cardHolderName = req.body.cardHolderName;
-            let cvvCode = req.body.cvvCode;
-            let cardType = req.body.cardType;
-            let pinNo = req.body.pinNo;
-            let owner = user;
+
+            const {
+                cardNumber = cardNumber,
+                expiryDate = expiryDate,
+                cardHolderName = cardHolderName,
+                cvvCode = cvvCode,
+                cardType = cardType,
+                pinNo = pinNo,
+                owner = user,
+            } = req.body
         
             const card = await new Card({
                 cardNumber: cardNumber,
@@ -38,7 +41,7 @@ router.post("/add-card", async (req, res) => {
             });
 
             try{
-                await Card.create()
+                await card.save()
                 .then(data => {
                     res.json({ status: 201, message: "Card added successfully" });
                 });
@@ -62,5 +65,22 @@ router.post("/add-card", async (req, res) => {
 
     
     });
+
+//Get cards of user
+router.get("/get-cards/:userId", async (req, res) => {
+    try {
+  
+      let userId = req.params.userId;
+  
+      const cards = await Card.find({
+        owner: userId,
+      });
+  
+        res.json(cards);
+  
+    } catch (err) {
+      res.json({ error: err });
+    }
+  });
 
 module.exports = router;

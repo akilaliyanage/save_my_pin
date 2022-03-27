@@ -4,19 +4,21 @@ import 'package:http/http.dart';
 import 'package:save_my_pin/models/CreditCard.dart';
 import 'dart:developer';
 
+import '../auth/Auth.dart';
 import '../utils/connection.dart';
 
 class HttpServiceCard {
 
-  Future<List<CreditCard>> getCards(String userId) async {
+  Future<List<CreditCard>> getCards() async {
     //print(userId);
-
+    String userId =  await Auth.getUserId();
+    print(userId);
     Response res =
-    await get(Uri.parse("http://localhost:8090/secCard/get-cards/" + userId));
+    await get(Uri.parse(Connection.baseUrl + "/secCard/get-cards/" + userId));
 
     //print(res.toString());
     if (res.statusCode == 200) {
-      //print(res.body);
+      print(res.body);
       List<dynamic> body = jsonDecode(res.body);
 
       List<CreditCard> cards =
@@ -34,7 +36,7 @@ class HttpServiceCard {
     //print(userId);
 
     Response res =
-    await get(Uri.parse("http://localhost:8090/secCard/get-card/" + cardNo));
+    await get(Uri.parse(Connection.baseUrl + "/secCard/get-cards/" + cardNo));
 
     //print(res.toString());
     if (res.statusCode == 200) {
