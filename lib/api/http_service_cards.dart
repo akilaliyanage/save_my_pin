@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:save_my_pin/models/CreditCard.dart';
 import 'dart:developer';
-
+import 'package:save_my_pin/pages/card/my_cards.dart';
 import '../auth/Auth.dart';
 import '../utils/connection.dart';
 
@@ -76,6 +76,22 @@ class HttpServiceCard {
       print("Something went wrong");
     }
     return true;
+  }
+
+  Future deleteCard(BuildContext context,String cardNumber) async {
+    print("Delete Called");
+    var res = await delete(
+        Uri.parse(Connection.baseUrl + "/secCard/delete-card/" + cardNumber),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        });
+    var result = jsonDecode(res.body);
+    if (result['status'] == 200) {
+      print("Deleted");
+      Navigator.pushNamed(context, my_cards.routeName);
+    } else {
+      print("Error in Deleted");
+    }
   }
 
 }
