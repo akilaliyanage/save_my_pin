@@ -19,16 +19,8 @@ class _my_cards extends State<my_cards> {
       appBar: buildAppBar(),
       drawer: const CardnavBar(),
       body: MyCardsBody(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        backgroundColor: kPrimaryColor,
-        onPressed: () {
-        },
-      ),
-      // bottomNavigationBar: MyBottomNavBar(),
     );
   }
-
   AppBar buildAppBar() {
     return AppBar(
       elevation: 0,

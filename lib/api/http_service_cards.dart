@@ -10,15 +10,12 @@ import '../utils/connection.dart';
 class HttpServiceCard {
 
   Future<List<CreditCard>> getCards() async {
-    //print(userId);
     String userId =  await Auth.getUserId();
-    print(userId);
     Response res =
     await get(Uri.parse(Connection.baseUrl + "/secCard/get-cards/" + userId));
 
     //print(res.toString());
     if (res.statusCode == 200) {
-      print(res.body);
       List<dynamic> body = jsonDecode(res.body);
 
       List<CreditCard> cards =
@@ -27,8 +24,8 @@ class HttpServiceCard {
       return cards;
     } else {
       debugPrint('error');
-      log('cant fecth data');
-      throw "cant get passwords";
+      log('cant fetch data');
+      throw "cant get cards";
     }
   }
 
