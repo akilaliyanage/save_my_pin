@@ -38,8 +38,7 @@ class SecureNotesList extends StatelessWidget {
                 //bottom: kDefaultPadding * 0.5,
               ),
               child: Column(
-                children: dataList!
-                    .map(
+                children: dataList.map(
                       (SecureNote e) => Column(
                         children: <Widget>[
                           secureNoteCard(
@@ -81,13 +80,13 @@ Widget secureNoteCard(BuildContext context, String noteName, String body) {
             ),
             child: Card(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 margin: const EdgeInsets.only(
-                  left: kDefaultPadding,
+                  left: kDefaultPadding / 2,
                   bottom: kDefaultPadding * 0.5,
                 ),
-                elevation: 2,
+                elevation: 3,
                 child: Padding(
                     padding: const EdgeInsets.only(
                       right: kDefaultPadding,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:save_my_pin/pages/akila/Pwd_nav_bar_custom.dart';
 import 'package:save_my_pin/pages/akila/sec_pwd_body.dart';
 
-import 'add_new/add_new_pwd.dart';
+import 'add_new/add_new_secure_note.dart';
 import 'constants.dart';
 
 class secure_note_home extends StatefulWidget {
@@ -25,7 +25,7 @@ class _secure_note_homeState extends State<secure_note_home> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => add_new_pwd()),
+            MaterialPageRoute(builder: (context) => add_new_secure_note()),
           );
         },
       ),

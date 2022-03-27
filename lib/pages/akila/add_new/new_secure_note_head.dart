@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
-class AddNewPwdHeader extends StatelessWidget {
-  const AddNewPwdHeader({
+class AddNewSecureNoteHdr extends StatelessWidget {
+  const AddNewSecureNoteHdr({
     // Key key,
     required this.size,
   });
@@ -35,12 +35,12 @@ class AddNewPwdHeader extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(
-                  'Add New Password',
+                  'ADD NEW SECURE NOTE',
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
-                Image.asset("assets/images/sec pwd2.gif")
+               // Image.asset("assets/images/sec pwd2.gif")
               ],
             ),
           ),

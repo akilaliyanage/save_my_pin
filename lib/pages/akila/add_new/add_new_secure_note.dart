@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:save_my_pin/pages/pwds/list_container.dart';
-import 'package:save_my_pin/pages/pwds/pwd_header.dart';
+import 'package:save_my_pin/pages/akila/add_new/new_secure_note_form.dart';
+import 'package:save_my_pin/pages/akila/list_container.dart';
+import 'package:save_my_pin/pages/akila/pwd_header.dart';
 import '../constants.dart';
-import 'new_pwd_head.dart';
+import 'new_secure_note_head.dart';
 
-class add_new_pwd extends StatefulWidget {
-  add_new_pwd({Key? key}) : super(key: key);
+class add_new_secure_note extends StatefulWidget {
+  add_new_secure_note({Key? key}) : super(key: key);
 
   @override
-  State<add_new_pwd> createState() => _add_new_pwdState();
+  State<add_new_secure_note> createState() => _add_new_secure_noteState();
 }
 
-class _add_new_pwdState extends State<add_new_pwd> {
+class _add_new_secure_noteState extends State<add_new_secure_note> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +47,8 @@ class AddNew_Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          AddNewPwdHeader(size: size),
+          AddNewSecureNoteHdr(size: size),
+          NewSecureNoteForm()
           
         ],
       ),

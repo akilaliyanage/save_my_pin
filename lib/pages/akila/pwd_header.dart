@@ -1,4 +1,4 @@
-import 'dart:ffi';
+//import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:save_my_pin/pages/akila/constants.dart';
@@ -36,7 +36,7 @@ class PwdHeader extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(
-                  'SECURE PASSWORDS',
+                  'SECURE NOTES',
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
