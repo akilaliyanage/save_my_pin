@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:save_my_pin/pages/akila/secure_notes_home.dart';
 import 'package:save_my_pin/pages/akila/secure_notes_splash.dart';
 import 'package:save_my_pin/pages/card/add_card.dart';
+import 'package:save_my_pin/pages/card/my_cards.dart';
 import 'package:save_my_pin/pages/user/access.dart';
 import 'package:save_my_pin/pages/user/login.dart';
 import 'package:save_my_pin/pages/user/members.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: add_card.routeName,
+      initialRoute: my_cards.routeName,
 
       routes: {
         '/secureSplash': (context) => const secure_notes_splash(),
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         Access.routeName: (context) => const Access(),
         secure_cards_splash.routeName: (context) => const secure_cards_splash(),
         add_card.routeName: (context) => add_card(),
+        my_cards.routeName: (context) => my_cards(),
       },
     );
   }

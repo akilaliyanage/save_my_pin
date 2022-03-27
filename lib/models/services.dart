@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:save_my_pin/pages/card/add_card.dart';
+
 class Service {
   final String name;
   final String image;
@@ -25,5 +28,5 @@ const List<Service> appServices = [
       image:
           "https://t3.ftcdn.net/jpg/02/22/85/00/360_F_222850000_8nml6uLzmekcXvWxUSUCHZtZ7n8NWMCV.jpg",
       name: "Secure Cards",
-      routePath: "/secureNotesHome"),
+      routePath: add_card.routeName),
 ];

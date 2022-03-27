@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '../basic_componants/card_header.dart';
-import 'credit_card.dart';
 
 
-class AddCardBody extends StatelessWidget {
+class MyCardsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // It will provie us total height  and width of our screen
@@ -13,8 +12,7 @@ class AddCardBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          CardHeader(size: size, title: "Secure Cards", image: Image.asset("assets/images/creditCard.gif")),
-          CreditCard(),
+          CardHeader(size: size , title: "My Cards", image: Image.asset("assets/images/creditCard.gif"),),
         ],
       ),
     );

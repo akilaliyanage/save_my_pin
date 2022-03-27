@@ -38,7 +38,7 @@ router.post("/add-card", async (req, res) => {
             });
 
             try{
-                await card.create()
+                await Card.create()
                 .then(data => {
                     res.json({ status: 201, message: "Card added successfully" });
                 });
