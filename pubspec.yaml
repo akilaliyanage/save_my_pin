@@ -44,6 +44,7 @@ dependencies:
   http: ^0.13.4
   top_snackbar_flutter: ^1.0.2
   flutter_config: ^2.0.0
+  flutter_credit_card: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,8 @@ flutter:
     - assets/images/home_icon.png
     - assets/images/menu.png
     - assets/images/green_lock.png
+    - assets/images/creditCard.gif
+    - assets/images/back7.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

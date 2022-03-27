@@ -29,6 +29,8 @@ class MyApp extends StatelessWidget {
         Profile.routeName: (context) => Profile(),
         Members.routeName: (context) => const Members(),
         Access.routeName: (context) => const Access(),
+        secure_cards_splash.routeName: (context) => const secure_cards_splash(),
+        add_card.routeName: (context) => add_card(),
       },
     );
   }
