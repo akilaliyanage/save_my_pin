@@ -36,8 +36,9 @@ class _LoginState extends State<Login> {
       print(result['user']);
       var userID = result['user']['_id'];
       var groupID = result['user']['group'];
+      var userName = result['user']['username'];
       print(groupID);
-      await Auth.rememberUser(userID, groupID);
+      await Auth.rememberUser(userID, userName, groupID);
       showTopSnackBar(
         context,
         CustomSnackBar.success(
