@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:save_my_pin/pages/user/navbar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -138,6 +139,11 @@ class _ProfileState extends State<Profile> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+        appBar: new AppBar(
+          elevation: 0,
+          backgroundColor: Colors.green,
+        ),
+        drawer: const navBar(),
         body: FutureBuilder(
             future: Auth.view(),
             builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
@@ -567,60 +573,6 @@ class _ProfileState extends State<Profile> {
                                     },
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        bottomNavigationBar: Container(
-                          child: Material(
-                            elevation: 15,
-                            child: BottomNavigationBar(
-                              currentIndex: currentIndex,
-                              showSelectedLabels: false,
-                              onTap: (currentIndex) => {
-                                if (currentIndex == 0)
-                                  {Navigator.pushNamed(context, '/home')}
-                                else if (currentIndex == 1)
-                                  {Navigator.pushNamed(context, '/profile')}
-                                else if (currentIndex == 2)
-                                  {Navigator.pushNamed(context, '/search')}
-                                else if (currentIndex == 3)
-                                  {Navigator.pushNamed(context, '/cart')}
-                              },
-                              items: const [
-                                BottomNavigationBarItem(
-                                    icon: Icon(
-                                      Icons.home,
-                                      color: Colors.black38,
-                                    ),
-                                    label: "Home"
-                                    // backgroundColor: Colors.redAccent
-                                    ),
-                                BottomNavigationBarItem(
-                                  icon: Icon(
-                                    Icons.people,
-                                    color: Colors.black38,
-                                  ),
-                                  label: "Profile",
-                                  // backgroundColor: Colors.redAccent
-                                ),
-                                BottomNavigationBarItem(
-                                    icon: Icon(
-                                      Icons.search,
-                                      color: Colors.black38,
-                                    ),
-                                    label: "Search"
-                                    // backgroundColor: Colors.redAccent
-                                    ),
-                                BottomNavigationBarItem(
-                                    icon: Icon(
-                                      Icons.shopping_cart,
-                                      color: Colors.redAccent,
-                                    ),
-                                    label: "Cart"
-
-                                    // backgroundColor: Colors.redAccent
-                                    ),
                               ],
                             ),
                           ),

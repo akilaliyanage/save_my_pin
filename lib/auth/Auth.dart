@@ -10,9 +10,17 @@ class Auth {
   static User user = User('', '', '', '', '');
 
 //Remember user for next login
-  static Future<void> rememberUser(String id, String groupId) async {
+  static Future<void> rememberUser(String id, String name, String groupId) async {
     await storage.write(key: "user_id", value: id);
+    await storage.write(key: "username", value: name);
     await storage.write(key: "group_id", value: groupId);
+  }
+
+  //Logout
+  static Future<void> logoutUser() async {
+    await storage.write(key: "user_id", value: null);
+    await storage.write(key: "username", value: "");
+    await storage.write(key: "group_id", value: null);
   }
 
   //Temporary user session
@@ -27,6 +35,13 @@ class Auth {
     return user_id.toString();
   }
 
+  //Get the current user name
+  static Future<String> getUserName() async {
+    var user_id = await storage.read(key: "username");
+    return user_id.toString();
+  }
+
+
   //Get the group id
   static Future<String> getGroupId() async {
     var groupId = await storage.read(key: "group_id");
@@ -39,7 +54,7 @@ class Auth {
     return user_id.toString();
   }
 
-  //Get the current user id
+  //Get the current user type
   static Future<String> getTempUserType() async {
     var user_id = await storage.read(key: "temp_user_type");
     return user_id.toString();

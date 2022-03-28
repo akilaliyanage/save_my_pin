@@ -277,7 +277,8 @@ class _MembersState extends State<Members> {
                                                   ),
                                                   contentPadding:
                                                       EdgeInsets.only(top: 15),
-                                                  hintText: 'Access Code',
+                                                  hintText:
+                                                      'Access Code (Must be unique)',
                                                 ),
                                               ),
                                             ),
