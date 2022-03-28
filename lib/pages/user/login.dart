@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
           message: "Successfilly Logged In",
         ),
       );
-      Navigator.pushNamed(context, '/profile');
+      Navigator.pushNamed(context, '/access');
     } else if (result['status'] == 401) {
       showTopSnackBar(
         context,
