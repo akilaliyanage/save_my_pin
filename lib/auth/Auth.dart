@@ -27,13 +27,13 @@ class Auth {
     return user_id.toString();
   }
 
-  //Get the current user id
+  //Get the group id
   static Future<String> getGroupId() async {
     var groupId = await storage.read(key: "group_id");
     return groupId.toString();
   }
 
-  //Get the current user id
+  //Get the temp user id
   static Future<String> getTempUserId() async {
     var user_id = await storage.read(key: "temp_user_id");
     return user_id.toString();

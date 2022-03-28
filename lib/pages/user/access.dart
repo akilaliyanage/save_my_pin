@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:save_my_pin/pages/user/login.dart';
+import 'package:save_my_pin/pages/user/profile.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -81,9 +82,9 @@ class _AccessState extends State<Access> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(Login.routeName);
+                Navigator.of(context).pushNamed(Profile.routeName);
               },
-              icon: Icon(Icons.logout))
+              icon: Icon(Icons.person))
         ],
       ),
       body: Column(
