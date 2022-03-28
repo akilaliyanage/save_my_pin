@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/secureNotesHome',
+
+      initialRoute: Login.routeName,
 
       routes: {
         '/secureNotesHome': (context) => secure_note_splash(),
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         Access.routeName: (context) => const Access(),
         secure_cards_splash.routeName: (context) => const secure_cards_splash(),
         add_card.routeName: (context) => add_card(),
+        my_cards.routeName: (context) => my_cards(),
       },
     );
   }

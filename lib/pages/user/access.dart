@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:save_my_pin/pages/user/login.dart';
+import 'package:save_my_pin/pages/user/navbar.dart';
+import 'package:save_my_pin/pages/user/profile.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -73,6 +75,55 @@ class _AccessState extends State<Access> {
     }
   }
 
+  Future validateAdmin() async {
+    var groupId = await Auth.getGroupId();
+    var res = await http.post(Uri.parse(Connection.baseUrl + "/user/access"),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{
+          'access_code': user.accessCode,
+          'group': groupId
+        }));
+    var result = await jsonDecode(res.body);
+    print(groupId);
+    if (result['status'] == 200 &&
+        result['user']['userType'] == "accountManager") {
+      var userId = result['user']['_id'];
+      var userType = result['user']['userType'];
+      await Auth.saveTempUser(userId, userType);
+
+      showTopSnackBar(
+        context,
+        CustomSnackBar.success(
+          message: "Access granted",
+        ),
+      );
+      Navigator.pushNamed(context, Profile.routeName);
+    } else if (result['status'] == 401) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Access Denied",
+        ),
+      );
+    } else if (result['status'] == 404) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "User does not exist!",
+        ),
+      );
+    } else {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Something went wrong!",
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,10 +131,36 @@ class _AccessState extends State<Access> {
         title: new Text('Save My Pin'),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(Login.routeName);
-              },
-              icon: Icon(Icons.logout))
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Access Key'),
+                      content: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            user.accessCode = value;
+                          });
+                        },
+                        decoration: const InputDecoration(
+                            hintText: "Insert Your Access Key"),
+                      ),
+                      actions: <Widget>[
+                        FlatButton(
+                          color: Colors.green,
+                          textColor: Colors.white,
+                          child: const Text('OK'),
+                          onPressed: () {
+                            setState(() {
+                              validateAdmin();
+                              Navigator.pop(context);
+                            });
+                          },
+                        ),
+                      ],
+                    );
+                  }),
+              icon: Icon(Icons.person))
         ],
       ),
       body: Column(

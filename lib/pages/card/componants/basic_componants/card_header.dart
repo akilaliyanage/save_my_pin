@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../../../pwds/constants.dart';
 
 class CardHeader extends StatelessWidget {
-  const CardHeader({
-    // Key key,
-    required this.size,
-  });
+  // ignore: use_key_in_widget_constructors
+  const CardHeader({required this.size, required this.title, required this.image,});
 
   final Size size;
+  final String title;
+  final Image image;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +34,12 @@ class CardHeader extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Text(
-                  'Secure Cards',
+                  title,
                   style: Theme.of(context).textTheme.headline5?.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
-                Image.asset("assets/images/creditCard.gif")
+                image
               ],
             ),
           ),
