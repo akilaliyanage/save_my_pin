@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:save_my_pin/pages/akila/secure_notes_home.dart';
 import 'package:save_my_pin/pages/akila/secure_notes_splash.dart';
+import 'package:save_my_pin/pages/card/add_card.dart';
+import 'package:save_my_pin/pages/card/my_cards.dart';
 import 'package:save_my_pin/pages/user/access.dart';
 import 'package:save_my_pin/pages/user/login.dart';
 import 'package:save_my_pin/pages/user/members.dart';
 import 'package:save_my_pin/pages/user/profile.dart';
 import 'package:save_my_pin/pages/user/register.dart';
 import 'package:save_my_pin/pages/pwds/secure_pwd.dart';
+import 'package:save_my_pin/pages/card/secure_cards_splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +23,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login',
+      initialRoute: Login.routeName,
+
       routes: {
         '/secureSplash': (context) => const secure_notes_splash(),
         '/secureNotesHome': (context) => secure_notes_home(),
@@ -30,6 +34,9 @@ class MyApp extends StatelessWidget {
         Profile.routeName: (context) => Profile(),
         Members.routeName: (context) => const Members(),
         Access.routeName: (context) => const Access(),
+        secure_cards_splash.routeName: (context) => const secure_cards_splash(),
+        add_card.routeName: (context) => add_card(),
+        my_cards.routeName: (context) => my_cards(),
       },
     );
   }
