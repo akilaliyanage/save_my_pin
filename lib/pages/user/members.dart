@@ -67,7 +67,8 @@ class _MembersState extends State<Members> {
           message: "New Member Added!",
         ),
       );
-      Navigator.pushNamed(context, '/members');
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => super.widget));
     } else if (result['status'] == 401) {
       showTopSnackBar(
         context,
@@ -100,7 +101,8 @@ class _MembersState extends State<Members> {
         ),
       );
       getUsers();
-      Navigator.pushNamed(context, '/members');
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => super.widget));
     } else {
       showTopSnackBar(
         context,
@@ -132,6 +134,18 @@ class _MembersState extends State<Members> {
       ),
       body: Column(
         children: [
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            child: const Center(
+              child: Text(
+                "My Members",
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
           Flexible(
               flex: 5,
               child: ListView.separated(
@@ -140,16 +154,29 @@ class _MembersState extends State<Members> {
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
                     elevation: 8,
-                    child: ListTile(
-                      title: Text(members[index].username),
-                      trailing: IconButton(
-                        icon: const Icon(
-                          Icons.delete,
-                          color: Colors.red,
+                    clipBehavior: Clip.antiAlias,
+                    child: Container(
+                      child: ListTile(
+                        tileColor: Colors.lightBlue,
+                        title: Text(members[index].username),
+                        leading: IconButton(
+                          icon: const Icon(
+                            Icons.person_pin_rounded,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            removeMember(members[index].id);
+                          },
                         ),
-                        onPressed: () {
-                          removeMember(members[index].id);
-                        },
+                        trailing: IconButton(
+                          icon: const Icon(
+                            Icons.close_rounded,
+                            color: Color.fromARGB(255, 34, 31, 31),
+                          ),
+                          onPressed: () {
+                            removeMember(members[index].id);
+                          },
+                        ),
                       ),
                     ),
                   );
