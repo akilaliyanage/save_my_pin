@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:save_my_pin/pages/akila/constants.dart';
+import 'package:save_my_pin/api/http_service_secure_notes.dart';
 
-class NewSecureNoteForm extends StatelessWidget {
+class NewSecureNoteForm extends StatefulWidget {
   const NewSecureNoteForm({Key? key}) : super(key: key);
+
+  @override
+  State<NewSecureNoteForm> createState() => _NewSecureNoteFormState();
+}
+
+class _NewSecureNoteFormState extends State<NewSecureNoteForm> {
+  String noteName = '';
+  String noteBody = '';
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +26,8 @@ class NewSecureNoteForm extends StatelessWidget {
               Expanded(
                 child: TextField(
                   onChanged: (value) {
-                    print(value);
+                    this.noteName = value;
+                    print(noteName);
                   },
                   decoration: InputDecoration(
                     hintText: "Enter the secure note name",
@@ -47,7 +58,10 @@ class NewSecureNoteForm extends StatelessWidget {
               Expanded(
                 child: TextField(
                   onChanged: (value) {
-                    print(value);
+                    setState(() {
+                      this.noteBody = value;
+                      print(noteBody);
+                    });
                   },
                   maxLines: 20,
                   decoration: InputDecoration(
@@ -71,10 +85,33 @@ class NewSecureNoteForm extends StatelessWidget {
             ],
           ),
           Container(
-            constraints: BoxConstraints( minHeight: 50.0),
+            constraints: BoxConstraints(minHeight: 50.0),
             margin: EdgeInsets.all(10),
             child: RaisedButton(
-              onPressed: () {},
+              onPressed: () async {
+                HttpSecureNote secure_note = new HttpSecureNote();
+
+                bool response = await secure_note.saveNote(noteName, noteBody);
+
+                if (response) {
+                  Alert(
+                    context: context,
+                    type: AlertType.success,
+                    title: "SAVE SUCCESSSFUL!!",
+                    //desc: "Flutter is more awesome with RFlutter Alert.",
+                    buttons: [
+                      DialogButton(
+                        child: Text(
+                          "OK",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        color: Color.fromRGBO(0, 179, 134, 1.0),
+                      )
+                    ],
+                  ).show();
+                }
+              },
               color: Theme.of(context).accentColor,
               child: Padding(
                 padding: EdgeInsets.all(0),

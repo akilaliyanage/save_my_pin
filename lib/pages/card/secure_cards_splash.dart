@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:save_my_pin/pages/akila/secure_notes_home.dart';
+//import 'package:save_my_pin/pages/akila/secure_notes_home.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 class secure_cards_splash extends StatelessWidget {
