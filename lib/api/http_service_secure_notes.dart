@@ -56,4 +56,18 @@ class HttpSecureNote {
       return false;
     }
   }
+
+  Future delNote(String id) async {
+
+    Response res = await http.delete(
+        Uri.parse("http://localhost:8080/secure-notes/delete/" + id));
+
+    log(res.toString());
+    if (res.statusCode == 200) {
+      return true;
+    } else {
+      debugPrint('error');
+      return false;
+    }
+  }
 }

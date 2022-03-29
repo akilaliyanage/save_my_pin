@@ -57,6 +57,7 @@ router.delete('/delete/:id', async (req, res, _next) => {
         let isDeleted = await SecureNote.deleteOne({_id: onbId})
 
         if(isDeleted){
+            console.log(isDeleted);
             res.status(200).json({"message" : "item deleted"})
         }
     }catch (err){

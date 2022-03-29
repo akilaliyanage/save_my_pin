@@ -110,6 +110,23 @@ class _NewSecureNoteFormState extends State<NewSecureNoteForm> {
                       )
                     ],
                   ).show();
+                }else{
+                  Alert(
+                    context: context,
+                    type: AlertType.error,
+                    title: "SAVE NOT SUCCESSSFUL!!",
+                    //desc: "Flutter is more awesome with RFlutter Alert.",
+                    buttons: [
+                      DialogButton(
+                        child: Text(
+                          "OK",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        color: Color.fromRGBO(0, 179, 134, 1.0),
+                      )
+                    ],
+                  ).show();
                 }
               },
               color: Theme.of(context).accentColor,
