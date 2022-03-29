@@ -22,14 +22,15 @@ router.get('/get-all', async (_req, res, _next) => {
 
 });
 
-router.post('/create-new', async (_req, res, _next) => {
+router.post('/create-new', async (req, res, _next) => {
 	try{
-
+        var noteName = req.body.noteName;
+        var body = req.body.body;
         var newSecureNote = new SecureNote({
-            noteName : _req.body.noteName ?? "",
-            body : _req.body.body ?? "",
-            hasOptCode : _req.body.hasOptCode ?? false,
-            optPassCode : _req.body.hasOptCode ? _req.body.optPassCode : null,
+            noteName : req.body.noteName,
+            body : req.body.body,
+            hasOptCode : req.body.hasOptCode ?? false,
+            optPassCode : req.body.hasOptCode ? req.body.optPassCode : null,
         })
 
         newSecureNote.save().then(data =>{

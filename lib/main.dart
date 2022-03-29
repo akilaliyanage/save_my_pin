@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:save_my_pin/pages/card/add_card.dart';
+import 'package:save_my_pin/pages/card/my_cards.dart';
+import 'package:save_my_pin/pages/card/secure_cards_splash.dart';
 import 'package:save_my_pin/pages/user/access.dart';
 import 'package:save_my_pin/pages/user/login.dart';
 import 'package:save_my_pin/pages/user/members.dart';
@@ -20,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      initialRoute: Login.routeName,
+      initialRoute: '/secureNotesHome',
 
       routes: {
         '/secureNotesHome': (context) => secure_note_splash(),

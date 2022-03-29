@@ -10,7 +10,8 @@ class HttpSecureNote {
   //final String getUrl = "http://" + FlutterConfig.get('IP') + ":8000/product";
 
   Future<List<SecureNote>> getAllNotes() async {
-    Response res = await http.get(Uri.parse("http://localhost:8090/secure-notes/get-all"));
+    Response res =
+        await http.get(Uri.parse("http://localhost:8080/secure-notes/get-all"));
 
     log(res.toString());
     if (res.statusCode == 200) {
@@ -27,6 +28,32 @@ class HttpSecureNote {
       debugPrint('error');
       log('cant fecth data');
       throw "cant get SecureNotes";
+    }
+  }
+
+  Future saveNote(String noteName, String body) async {
+    var dataMap = new Map<String, String>();
+    dataMap['noteName'] = noteName;
+    dataMap['body'] = body;
+
+    print(dataMap.toString());
+
+    Response res = await http.post(
+        Uri.parse("http://localhost:8080/secure-notes/create-new"),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{
+          'noteName': noteName,
+          'body': body,
+        }));
+
+    log(res.toString());
+    if (res.statusCode == 200) {
+      return true;
+    } else {
+      debugPrint('error');
+      return false;
     }
   }
 }
