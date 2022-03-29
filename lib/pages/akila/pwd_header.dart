@@ -70,6 +70,7 @@ class PwdHeader extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
+                        
                         print(value);
                       },
                       decoration: InputDecoration(
