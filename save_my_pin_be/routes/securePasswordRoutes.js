@@ -6,22 +6,18 @@ const SecPwd = require('../models/SecurePassword');
 
 //get all password entries for a user
 router.get('/get-pwd/:id', async (req,res) =>{
-    
     try {
         const pwds = await SecPwd.find({user_id : req.params.id})
-        console.log(pwds);
-
+        // console.log(pwds);
         res.status(200).send(pwds)
     } catch (error) {
         res.status(500).send(error)
     }
-
 });
 
 
 //add a new pwd
 router.post('/add-pwd', async (req, res, _next) => {
-
     try{
         const data = await SecPwd.create({
             website : req.body.website,
@@ -30,7 +26,6 @@ router.post('/add-pwd', async (req, res, _next) => {
             addedDate: new Date(),
             user : req.body.user,
         })
-
         res.json({status:200, message:'Password Protection successful!!'})
         console.log(data)
     }
@@ -38,5 +33,20 @@ router.post('/add-pwd', async (req, res, _next) => {
         console.log(err);
     }
 });
+
+router.delete('/delete/:id', async (req, res, _next) => {
+    try{
+        var onbId = req.params.id
+
+        let isDeleted = await SecPwd.deleteOne({_id: onbId})
+
+        if(isDeleted){
+            console.log(isDeleted);
+            res.status(200).json({"message" : "item deleted"})
+        }
+    }catch (err){
+        res.status(500).send(err.toString())
+    }
+})
 
 module.exports = router;
