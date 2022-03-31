@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:save_my_pin/pages/akila/secure_notes_home.dart';
-import 'package:save_my_pin/pages/akila/secure_notes_splash.dart';
 import 'package:save_my_pin/pages/card/add_card.dart';
 import 'package:save_my_pin/pages/card/my_cards.dart';
+import 'package:save_my_pin/pages/card/secure_cards_splash.dart';
 import 'package:save_my_pin/pages/user/access.dart';
 import 'package:save_my_pin/pages/user/login.dart';
 import 'package:save_my_pin/pages/user/members.dart';
 import 'package:save_my_pin/pages/user/profile.dart';
 import 'package:save_my_pin/pages/user/register.dart';
 import 'package:save_my_pin/pages/pwds/secure_pwd.dart';
-import 'package:save_my_pin/pages/card/secure_cards_splash.dart';
+import 'package:save_my_pin/pages/akila/secure_note.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,11 +22,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Login.routeName,
+
+      initialRoute: '/secureNotesHome',
 
       routes: {
-        '/secureSplash': (context) => const secure_notes_splash(),
-        '/secureNotesHome': (context) => secure_notes_home(),
+        '/secureNotesHome': (context) => secure_note_splash(),
         '/secPwdSplash': (context) => secure_pwd_splash(),
         Register.routeName: (context) => const Register(),
         Login.routeName: (context) => const Login(),
