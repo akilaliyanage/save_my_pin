@@ -20,6 +20,8 @@ class PasswordList extends StatelessWidget {
                 _httpServicePassword.getPasswords('6224b48fdcf09c1754390365'),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Password>> snapshot) {
+                  // log(snapshot.toString());
+                  debugPrint('movieTitle:'+ snapshot.toString());
               if (snapshot.hasData) {
                 log(snapshot.data.toString());
                 List<Password>? dataList = snapshot.data;
@@ -42,8 +44,10 @@ class PasswordList extends StatelessWidget {
                           .toList(),
                     )
                     );
+              }else {
+                return const Center(child: CircularProgressIndicator());
               }
-              return Center(child: CircularProgressIndicator());
+              
             }));
   }
 }
