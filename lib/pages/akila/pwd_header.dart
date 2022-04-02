@@ -1,6 +1,7 @@
 //import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:save_my_pin/api/http_service_secure_notes.dart';
 import 'package:save_my_pin/pages/akila/constants.dart';
 
 class PwdHeader extends StatelessWidget {
@@ -69,8 +70,14 @@ class PwdHeader extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
-                      onChanged: (value) {
+                      onSubmitted: (value) {
+                        print(value);
+
+                        HttpSecureNote secureNote = HttpSecureNote();
+
                         
+                      },
+                      onChanged: (value) {
                         print(value);
                       },
                       decoration: InputDecoration(

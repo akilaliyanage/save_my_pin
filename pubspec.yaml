@@ -81,6 +81,7 @@ flutter:
     - assets/images/green_lock.png
     - assets/images/creditCard.gif
     - assets/images/back7.jpg
+    - assets/icons8-double-left.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
