@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:save_my_pin/api/http_service_secure_notes.dart';
 
@@ -66,6 +67,18 @@ Widget secureNoteCard(
   Size? size = MediaQuery?.of(context).size;
   String updateNote = "";
   return InkWell(
+    onTap: () {
+      Clipboard.setData(ClipboardData(text: body));
+      SnackBar(
+        content: const Text('Scure text copied!'),
+        action: SnackBarAction(
+          label: 'Action',
+          onPressed: () {
+            // Code to execute.
+          },
+        ),
+      );
+    },
     onDoubleTap: () {
       print(id);
       showDialog(
@@ -86,7 +99,7 @@ Widget secureNoteCard(
                 child: new Text("OK"),
                 onPressed: () {
                   print(updateNote);
-                  
+
                   Navigator.of(context).pop();
                 },
               ),
@@ -202,16 +215,18 @@ Widget secureNoteCard(
                               Align(
                                 alignment: Alignment.topRight,
                                 child: Text(
-                                  noteName,
-                                  style: TextStyle(fontSize: 20.0),
+                                  noteName.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
-                              Align(
+                              const Align(
                                 alignment: Alignment.topRight,
                                 child: Text(
-                                  body.replaceRange(0, 6, "******"),
+                                  "Tap to copy the text",
                                   textAlign: TextAlign.left,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 15.0, color: Colors.black54),
                                 ),
                               )
