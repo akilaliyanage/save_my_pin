@@ -58,15 +58,30 @@ class HttpSecureNote {
   }
 
   Future delNote(String id) async {
-
-    Response res = await http.delete(
-        Uri.parse("http://localhost:8080/secure-notes/delete/" + id));
+    Response res = await http
+        .delete(Uri.parse("http://localhost:8080/secure-notes/delete/" + id));
 
     log(res.toString());
     if (res.statusCode == 200) {
       return true;
     } else {
       debugPrint('error');
+      
+      return false;
+    }
+  }
+
+  Future updateNote(String id, String data) async {
+    Response res = await http.patch(
+        Uri.parse('http://localhost:8080/secure-notes/update' + id),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{'data': data}));
+
+    if (res.statusCode == 200) {
+      return true;
+    } else {
       return false;
     }
   }

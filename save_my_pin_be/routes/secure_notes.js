@@ -22,6 +22,20 @@ router.get('/get-all', async (_req, res, _next) => {
 
 });
 
+router.patch('/update/:id',async (req, res, _next)=>{
+    try{
+        var body = req.body.data;
+        var id = req.params.id;
+
+        var isUpdated = await SecureNote.findOneAndUpdate({_id: id},{body : body})
+
+        if(isUpdated){
+            res.status(200).json({"message":"updated"})
+        }
+    }catch (err){
+        res.status(500).send(err.toString())
+    }
+})
 
 router.get('/get/:id', async (_req, res, _next) => {
     try{
