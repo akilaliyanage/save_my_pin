@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      initialRoute: '/secureNotesHome',
+      initialRoute: my_cards.routeName,
 
       routes: {
         '/secureNotesHome': (context) => secure_note_splash(),

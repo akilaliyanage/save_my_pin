@@ -78,10 +78,9 @@ class HttpServiceCard {
     return true;
   }
 
-  Future deleteCard(BuildContext context,String cardNumber) async {
-    print("Delete Called");
+  Future deleteCard(BuildContext context,String id) async {
     var res = await delete(
-        Uri.parse(Connection.baseUrl + "/secCard/delete-card/" + cardNumber),
+        Uri.parse(Connection.baseUrl + "/secCard/delete-card/" + id),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         });

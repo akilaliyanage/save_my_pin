@@ -84,9 +84,9 @@ router.get("/get-cards/:userId", async (req, res) => {
   });
 
 //delete card
-router.delete("/delete-card/:cardNumber", async (req, res) => {
+router.delete("/delete-card/:id", async (req, res) => {
     try {
-      await Card.findOneAndDelete({_id: req.params.cardNumber}).then(() => {
+      await Card.findOneAndDelete({_id: req.params.id}).then(() => {
         res.json({ status: 200, message: "Card Deleted" });
       })
     } catch (err) {

@@ -5,23 +5,25 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:save_my_pin/api/http_service_cards.dart';
 
 class MyCard extends StatefulWidget {
+  String id;
   String cardNumber;
   String expiryDate ;
   String cardHolderName;
   String cvvCode;
-  MyCard({Key? key, required this.cardNumber , required this.expiryDate , required this.cardHolderName , required this.cvvCode}) : super(key: key);
+  MyCard({Key? key, required this.id, required this.cardNumber , required this.expiryDate , required this.cardHolderName , required this.cvvCode}) : super(key: key);
   @override
   // ignore: no_logic_in_create_state
-  _MyCardState createState() => _MyCardState(cardNumber, expiryDate, cardHolderName, cvvCode);
+  _MyCardState createState() => _MyCardState(id, cardNumber, expiryDate, cardHolderName, cvvCode);
 }
 
 class _MyCardState extends State<MyCard> {
+  String id;
   String cardNumber;
   String expiryDate;
   String cardHolderName;
   String cvvCode;
   HttpServiceCard service= new HttpServiceCard();
-  _MyCardState(this.cardNumber, this.expiryDate, this.cardHolderName, this.cvvCode);
+  _MyCardState(this.id, this.cardNumber, this.expiryDate, this.cardHolderName, this.cvvCode);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,7 @@ class _MyCardState extends State<MyCard> {
                     backgroundColor: Colors.red,
                     onPressed: () {
                       print("Called I");
-                      deleteConfirmation(context , cardNumber);
+                      deleteConfirmation(context , id);
                     },
                     child: Icon(Icons.delete),
                   ),
