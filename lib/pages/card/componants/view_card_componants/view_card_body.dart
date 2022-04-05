@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../view_card_componants/credit_card.dart';
 import '../basic_componants/card_header.dart';
 
-
 class ViewCardBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
