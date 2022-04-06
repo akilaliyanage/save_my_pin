@@ -94,4 +94,19 @@ router.delete("/delete-card/:id", async (req, res) => {
     }
   });
 
+  //Get card by Id
+  router.get("/get-card/:id", async (req, res) => {
+    try {
+      const card = await Card.findOne({ _id:req.params.id });
+  
+      if (card) {
+        res.json(card);
+      } else {
+        res.json({ status: 404, message: "card does not exist." });
+      }
+    } catch (err) {
+      res.json({ error: err });
+    }
+  });
+
 module.exports = router;

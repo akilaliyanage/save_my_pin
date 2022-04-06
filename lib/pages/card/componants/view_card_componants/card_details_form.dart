@@ -14,12 +14,12 @@ class CardDetailsForm extends StatefulWidget {
   String? cardHolderName;
   String? cvvCode;
   bool? isCvvFocused;
+  int? pin;
   // ignore: prefer_typing_uninitialized_variables
-  final onFormDataChange;
   HttpServiceCard service = HttpServiceCard();
-  CardDetailsForm({Key? key, this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.onFormDataChange}) : super(key: key);
+  CardDetailsForm({Key? key, this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.pin}) : super(key: key);
   @override
-  _CardDetailsFormState createState() => _CardDetailsFormState(cardNumber, expiryDate, cardHolderName, cvvCode, isCvvFocused);
+  _CardDetailsFormState createState() => _CardDetailsFormState(cardNumber, expiryDate, cardHolderName, cvvCode, isCvvFocused, pin);
 }
 
 class _CardDetailsFormState extends State<CardDetailsForm> {
@@ -35,7 +35,7 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
   bool showPinState = false;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  _CardDetailsFormState(this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused);
+  _CardDetailsFormState(this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.pin);
 
   get service => null;
 
@@ -60,13 +60,13 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
           child: Column(
             children: [
               Row(
-                children: const [
+                children:  [
                   Expanded(
                       child: Text(
-                        '1245',
+                        pin.toString(),
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 54
                         ),
@@ -179,7 +179,7 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
@@ -212,13 +212,5 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
       ],
     );
   }
-  void onCreditCardModelChange(CreditCardModel? creditCardModel){
-    setState(() {
-      cardNumber = creditCardModel!.cardNumber;
-      expiryDate = creditCardModel.expiryDate;
-      cardHolderName = creditCardModel.cardHolderName;
-      cvvCode = creditCardModel.cvvCode;
-    });
-    widget.onFormDataChange(creditCardModel);
-  }
+
 }

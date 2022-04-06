@@ -1,20 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+// ignore: library_prefixes
+import 'package:save_my_pin/models/CreditCard.dart' as cardModel;
 import 'package:save_my_pin/pages/card/componants/view_card_componants/card_details_form.dart';
 
 
+// ignore: must_be_immutable
 class CreditCard extends StatefulWidget {
+  cardModel.CreditCard creditCard;
+  CreditCard({Key? key, required this.creditCard}) : super(key: key);
   @override
-  _CreditCardState createState() => _CreditCardState();
+  _CreditCardState createState() => _CreditCardState(creditCard);
 }
 
 class _CreditCardState extends State<CreditCard> {
-  String cardNo = '';
-  String expDate = '';
-  String holderName = '';
-  String cvv = '';
   bool isCvvFocused = false;
+  cardModel.CreditCard creditCard;
+  _CreditCardState(this.creditCard);
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +25,10 @@ class _CreditCardState extends State<CreditCard> {
       child: Column(
         children: [
           CreditCardWidget(
-            cardNumber: cardNo,
-            expiryDate: expDate,
-            cardHolderName: holderName,
-            cvvCode: cvv,
+            cardNumber: creditCard.cardNumber,
+            expiryDate: creditCard.expiryDate,
+            cardHolderName: creditCard.cardHolderName,
+            cvvCode: creditCard.cvvCode.toString(),
             showBackView: isCvvFocused,
             obscureCardNumber: true,
             obscureCardCvv: true,
@@ -36,20 +39,11 @@ class _CreditCardState extends State<CreditCard> {
             onCreditCardWidgetChange: (CreditCardBrand ) {  },
           ),
           SingleChildScrollView(
-            child: CardDetailsForm(cardNumber:cardNo , expiryDate:expDate , cardHolderName:holderName , cvvCode:cvv, isCvvFocused:isCvvFocused, onFormDataChange:onCreditCardModelChange),
+            child: CardDetailsForm(cardNumber:creditCard.cardNumber , expiryDate:creditCard.expiryDate , cardHolderName:creditCard.cardHolderName , cvvCode:creditCard.cvvCode.toString(), isCvvFocused:isCvvFocused, pin: creditCard.pinNo),
           )
         ],
       ),
     );
   }
 
-  void onCreditCardModelChange(CreditCardModel? creditCardModel){
-    setState(() {
-      cardNo = creditCardModel!.cardNumber;
-      expDate = creditCardModel.expiryDate;
-      holderName = creditCardModel.cardHolderName;
-      cvv = creditCardModel.cvvCode;
-      isCvvFocused = creditCardModel.isCvvFocused;
-    });
-  }
 }

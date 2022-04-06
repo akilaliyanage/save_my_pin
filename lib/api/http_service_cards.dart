@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:save_my_pin/models/CreditCard.dart';
+import 'package:save_my_pin/pages/card/card_details.dart';
 import 'dart:developer';
 import 'package:save_my_pin/pages/card/my_cards.dart';
 import '../auth/Auth.dart';
@@ -14,10 +16,9 @@ class HttpServiceCard {
     Response res =
     await get(Uri.parse(Connection.baseUrl + "/secCard/get-cards/" + userId));
 
-    //print(res.toString());
+
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body);
-
       List<CreditCard> cards =
       body.map((dynamic item) => CreditCard.fromJson(item)).toList();
 
@@ -29,24 +30,24 @@ class HttpServiceCard {
     }
   }
 
-  Future<CreditCard> getCard(String cardNo) async {
+  Future getCard(BuildContext context, String id) async {
     //print(userId);
 
     Response res =
-    await get(Uri.parse(Connection.baseUrl + "/secCard/get-cards/" + cardNo));
+    await get(Uri.parse(Connection.baseUrl + "/secCard/get-card/" + id));
 
     //print(res.toString());
     if (res.statusCode == 200) {
-      //print(res.body);
-      dynamic body = jsonDecode(res.body);
+      Map<String , dynamic> body = jsonDecode(res.body);
 
-      CreditCard card =
-      body.map((dynamic item) => CreditCard.fromJson(item));
-
-      return card;
+      CreditCard card = CreditCard.fromJson(body);
+      print("body Is : " + res.body);
+      //Navigator.pushNamed(context, CardDetails.routeName);
+      Navigator.push( context, MaterialPageRoute( builder: (context) => CardDetails(creditCard: card)));
+      print("Card holder Name Is : " + card.cardHolderName.toString());
     } else {
       debugPrint('error');
-      log('cant fecth data');
+      log('cant fetch data');
       throw "cant get cards";
     }
   }

@@ -54,7 +54,9 @@ class _MyCardState extends State<MyCard> {
                   // add your floating action button
                   child: FloatingActionButton(
                     backgroundColor: Colors.green,
-                    onPressed: () {},
+                    onPressed: () {
+                      service.getCard(context , id);
+                    },
                     child: Icon(Icons.arrow_forward_rounded),
                   ),
                 ),
@@ -65,7 +67,6 @@ class _MyCardState extends State<MyCard> {
                   child: FloatingActionButton(
                     backgroundColor: Colors.red,
                     onPressed: () {
-                      print("Called I");
                       deleteConfirmation(context , id);
                     },
                     child: Icon(Icons.delete),
@@ -111,7 +112,6 @@ class _MyCardState extends State<MyCard> {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: (){
-            print("C is : " + cardNumber);
             service.deleteCard(context , cardNo);
             },
           color: Colors.red,
