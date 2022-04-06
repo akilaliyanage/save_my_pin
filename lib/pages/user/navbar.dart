@@ -25,7 +25,7 @@ class _navBarState extends State<navBar> {
         children: [
           DrawerHeader(
               decoration: const BoxDecoration(
-                color: Colors.green,
+                color: Colors.blue,
               ),
               child: Center(
                 child: Row(
@@ -61,7 +61,7 @@ class _navBarState extends State<navBar> {
                       child: Icon(
                         Icons.home,
                         size: 30,
-                        color: Colors.green,
+                        color: Colors.blue,
                       ),
                     ),
                   ],
@@ -80,7 +80,7 @@ class _navBarState extends State<navBar> {
                       child: Icon(
                         Icons.logout,
                         size: 30,
-                        color: Colors.green,
+                        color: Colors.blue,
                       ),
                     ),
                   ],

@@ -9,10 +9,10 @@ import 'package:save_my_pin/pages/user/navbar.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-
 import '../../auth/Auth.dart';
 import '../../models/User.dart';
 import '../../utils/connection.dart';
+import '../../utils/constants.dart' as Constants;
 
 class Profile extends StatefulWidget {
   static const String routeName = '/profile';
@@ -141,7 +141,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
         appBar: new AppBar(
           elevation: 0,
-          backgroundColor: Colors.green,
+          backgroundColor: Constants.primaryColor,
         ),
         drawer: const navBar(),
         body: FutureBuilder(
@@ -154,7 +154,7 @@ class _ProfileState extends State<Profile> {
                     children: [
                       Container(
                         decoration: const BoxDecoration(
-                          color: Colors.white,
+                          color: Constants.textColor,
                         ),
                       ),
                       Scaffold(
@@ -217,7 +217,7 @@ class _ProfileState extends State<Profile> {
                                       onPressed: () => {
                                         Navigator.pushNamed(context, '/members')
                                       },
-                                      backgroundColor: Colors.blue,
+                                      backgroundColor: Constants.primaryColor,
                                       tooltip: 'Increment',
                                       child: Icon(Icons.group_add),
                                     ),
@@ -275,8 +275,8 @@ class _ProfileState extends State<Profile> {
                                                                 .none,
                                                             prefixIcon: Icon(
                                                               Icons.person,
-                                                              color:
-                                                                  Colors.blue,
+                                                              color: Constants
+                                                                  .primaryColor,
                                                             ),
                                                             contentPadding:
                                                                 EdgeInsets.only(
@@ -292,12 +292,14 @@ class _ProfileState extends State<Profile> {
                                                     ),
                                                     Container(
                                                       child: FlatButton(
-                                                        color: Colors.blue,
+                                                        color: Constants
+                                                            .primaryColor,
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(15.0),
                                                         minWidth: 200.0,
-                                                        hoverColor: Colors.blue,
+                                                        hoverColor: Constants
+                                                            .primaryColor,
                                                         onPressed: () {
                                                           if (_formKey
                                                               .currentState!
@@ -308,13 +310,14 @@ class _ProfileState extends State<Profile> {
                                                         child: const Text(
                                                             'Update',
                                                             style: TextStyle(
-                                                                color: Colors
-                                                                    .white)),
-                                                        focusColor: Colors.blue,
+                                                                color: Constants
+                                                                    .textColor)),
+                                                        focusColor: Constants
+                                                            .primaryColor,
                                                         shape: RoundedRectangleBorder(
                                                             side: const BorderSide(
-                                                                color:
-                                                                    Colors.blue,
+                                                                color: Constants
+                                                                    .primaryColor,
                                                                 width: 1,
                                                                 style:
                                                                     BorderStyle
@@ -333,7 +336,8 @@ class _ProfileState extends State<Profile> {
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
-                                                        color: Colors.blue,
+                                                        color: Constants
+                                                            .primaryColor,
                                                         fontSize: 20,
                                                         fontFamily:
                                                             'Nisebuschgardens',
@@ -362,8 +366,8 @@ class _ProfileState extends State<Profile> {
                                                                 .none,
                                                             prefixIcon: Icon(
                                                               Icons.lock,
-                                                              color:
-                                                                  Colors.blue,
+                                                              color: Constants
+                                                                  .primaryColor,
                                                             ),
                                                             contentPadding:
                                                                 EdgeInsets.only(
@@ -397,8 +401,8 @@ class _ProfileState extends State<Profile> {
                                                                 .none,
                                                             prefixIcon: Icon(
                                                               Icons.lock,
-                                                              color:
-                                                                  Colors.blue,
+                                                              color: Constants
+                                                                  .primaryColor,
                                                             ),
                                                             contentPadding:
                                                                 EdgeInsets.only(
@@ -414,26 +418,28 @@ class _ProfileState extends State<Profile> {
                                                           const EdgeInsets.all(
                                                               15),
                                                       child: FlatButton(
-                                                        color: Colors.blue,
+                                                        color: Constants
+                                                            .primaryColor,
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(15.0),
                                                         minWidth: 200.0,
-                                                        hoverColor: Colors.blue,
+                                                        hoverColor: Constants
+                                                            .primaryColor,
                                                         onPressed: () {
                                                           updatePassword();
                                                         },
                                                         child: const Text(
                                                             'Reset ',
-                                                            style:
-                                                                const TextStyle(
-                                                                    color: Colors
-                                                                        .white)),
-                                                        focusColor: Colors.blue,
+                                                            style: const TextStyle(
+                                                                color: Constants
+                                                                    .textColor)),
+                                                        focusColor: Constants
+                                                            .primaryColor,
                                                         shape: RoundedRectangleBorder(
                                                             side: const BorderSide(
-                                                                color:
-                                                                    Colors.blue,
+                                                                color: Constants
+                                                                    .primaryColor,
                                                                 width: 1,
                                                                 style:
                                                                     BorderStyle
@@ -452,7 +458,8 @@ class _ProfileState extends State<Profile> {
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
-                                                        color: Colors.blue,
+                                                        color: Constants
+                                                            .primaryColor,
                                                         fontSize: 20,
                                                         fontFamily:
                                                             'Nisebuschgardens',
@@ -481,8 +488,8 @@ class _ProfileState extends State<Profile> {
                                                                 .none,
                                                             prefixIcon: Icon(
                                                               Icons.key,
-                                                              color:
-                                                                  Colors.blue,
+                                                              color: Constants
+                                                                  .primaryColor,
                                                             ),
                                                             contentPadding:
                                                                 EdgeInsets.only(
@@ -516,8 +523,8 @@ class _ProfileState extends State<Profile> {
                                                                 .none,
                                                             prefixIcon: Icon(
                                                               Icons.key,
-                                                              color:
-                                                                  Colors.blue,
+                                                              color: Constants
+                                                                  .primaryColor,
                                                             ),
                                                             contentPadding:
                                                                 EdgeInsets.only(
@@ -533,26 +540,28 @@ class _ProfileState extends State<Profile> {
                                                           const EdgeInsets.all(
                                                               15),
                                                       child: FlatButton(
-                                                        color: Colors.blue,
+                                                        color: Constants
+                                                            .primaryColor,
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(15.0),
                                                         minWidth: 200.0,
-                                                        hoverColor: Colors.blue,
+                                                        hoverColor: Constants
+                                                            .primaryColor,
                                                         onPressed: () {
                                                           updateAccessCode();
                                                         },
                                                         child: const Text(
                                                             'Reset ',
-                                                            style:
-                                                                const TextStyle(
-                                                                    color: Colors
-                                                                        .white)),
-                                                        focusColor: Colors.blue,
+                                                            style: const TextStyle(
+                                                                color: Constants
+                                                                    .textColor)),
+                                                        focusColor: Constants
+                                                            .primaryColor,
                                                         shape: RoundedRectangleBorder(
                                                             side: const BorderSide(
-                                                                color:
-                                                                    Colors.blue,
+                                                                color: Constants
+                                                                    .primaryColor,
                                                                 width: 1,
                                                                 style:
                                                                     BorderStyle

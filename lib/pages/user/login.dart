@@ -9,6 +9,7 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../auth/Auth.dart';
 import '../../models/User.dart';
 import '../../utils/connection.dart';
+import '../../utils/constants.dart' as Constants;
 
 class Login extends StatefulWidget {
   static const String routeName = '/login';
@@ -109,7 +110,7 @@ class _LoginState extends State<Login> {
                 child: Text(
                   "Sign In",
                   style: TextStyle(
-                      color: Colors.blue,
+                      color: Constants.primaryColor,
                       fontSize: 40,
                       fontWeight: FontWeight.bold),
                 ),
@@ -154,7 +155,7 @@ class _LoginState extends State<Login> {
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
                                           Icons.email,
-                                          color: Colors.blue,
+                                          color: Constants.primaryColor,
                                         ),
                                         contentPadding:
                                             EdgeInsets.only(top: 15),
@@ -186,7 +187,7 @@ class _LoginState extends State<Login> {
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
                                           Icons.lock,
-                                          color: Colors.blue,
+                                          color: Constants.primaryColor,
                                         ),
                                         contentPadding:
                                             EdgeInsets.only(top: 15),
@@ -204,28 +205,31 @@ class _LoginState extends State<Login> {
                   ),
                   SizedBox(height: 20),
                   FlatButton(
-                    color: Colors.blue,
+                    color: Constants.primaryColor,
                     padding: const EdgeInsets.all(20.0),
                     minWidth: 200.0,
-                    hoverColor: Colors.blue,
+                    hoverColor: Constants.primaryColor,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         login();
                       }
                     },
-                    child:
-                        Text('Sign In', style: TextStyle(color: Colors.white)),
-                    focusColor: Colors.blue,
+                    child: Text('Sign In',
+                        style: TextStyle(
+                          color: Constants.textColor,
+                          fontSize: 20,
+                        )),
+                    focusColor: Constants.primaryColor,
                     shape: RoundedRectangleBorder(
                         side: const BorderSide(
-                            color: Colors.blue,
+                            color: Constants.primaryColor,
                             width: 1,
                             style: BorderStyle.solid),
                         borderRadius: BorderRadius.circular(50)),
                   ),
                   SizedBox(height: 20),
                   FlatButton(
-                    textColor: Colors.blue,
+                    textColor: Constants.primaryColor,
                     onPressed: () {
                       Navigator.pushNamed(context, '/register');
                     },

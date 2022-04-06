@@ -8,6 +8,7 @@ import 'package:top_snackbar_flutter/tap_bounce_container.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../models/User.dart';
 import '../../utils/connection.dart';
+import '../../utils/constants.dart' as Constants;
 
 class Register extends StatefulWidget {
   static const String routeName = '/register';
@@ -99,7 +100,7 @@ class _RegisterState extends State<Register> {
                 child: Text(
                   "Sign Up",
                   style: TextStyle(
-                      color: Colors.blue,
+                      color: Constants.primaryColor,
                       fontSize: 40,
                       fontWeight: FontWeight.bold),
                 ),
@@ -144,7 +145,7 @@ class _RegisterState extends State<Register> {
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
                                           Icons.email,
-                                          color: Colors.blue,
+                                          color: Constants.primaryColor,
                                         ),
                                         contentPadding:
                                             EdgeInsets.only(top: 15),
@@ -175,7 +176,7 @@ class _RegisterState extends State<Register> {
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
                                           Icons.person,
-                                          color: Colors.blue,
+                                          color: Constants.primaryColor,
                                         ),
                                         contentPadding:
                                             EdgeInsets.only(top: 15),
@@ -207,7 +208,7 @@ class _RegisterState extends State<Register> {
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
                                           Icons.lock,
-                                          color: Colors.blue,
+                                          color: Constants.primaryColor,
                                         ),
                                         contentPadding:
                                             EdgeInsets.only(top: 15),
@@ -239,7 +240,7 @@ class _RegisterState extends State<Register> {
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
                                           Icons.key,
-                                          color: Colors.blue,
+                                          color: Constants.primaryColor,
                                         ),
                                         contentPadding:
                                             EdgeInsets.only(top: 15),
@@ -257,28 +258,31 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: 20),
                   FlatButton(
-                    color: Colors.blue,
+                    color: Constants.primaryColor,
                     padding: const EdgeInsets.all(20.0),
                     minWidth: 200.0,
-                    hoverColor: Colors.blue,
+                    hoverColor: Constants.primaryColor,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         save();
                       }
                     },
-                    child:
-                        Text('Sign Up', style: TextStyle(color: Colors.white)),
-                    focusColor: Colors.blue,
+                    child: Text('Sign Up',
+                        style: TextStyle(
+                          color: Constants.textColor,
+                          fontSize: 20,
+                        )),
+                    focusColor: Constants.primaryColor,
                     shape: RoundedRectangleBorder(
                         side: BorderSide(
-                            color: Colors.blue,
+                            color: Constants.primaryColor,
                             width: 1,
                             style: BorderStyle.solid),
                         borderRadius: BorderRadius.circular(50)),
                   ),
                   SizedBox(height: 20),
                   FlatButton(
-                    textColor: Colors.blue,
+                    textColor: Constants.primaryColor,
                     onPressed: () {
                       Navigator.pushNamed(context, '/login');
                     },
