@@ -15,11 +15,16 @@ class CardDetailsForm extends StatefulWidget {
   String? cvvCode;
   bool? isCvvFocused;
   int? pin;
+
+  int selectedPinState = 0;
+  int selectedcardState = 0;
+
+  final onCardVisibleChange;
   // ignore: prefer_typing_uninitialized_variables
   HttpServiceCard service = HttpServiceCard();
-  CardDetailsForm({Key? key, this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.pin}) : super(key: key);
+  CardDetailsForm({Key? key, this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.pin, this.onCardVisibleChange}) : super(key: key);
   @override
-  _CardDetailsFormState createState() => _CardDetailsFormState(cardNumber, expiryDate, cardHolderName, cvvCode, isCvvFocused, pin);
+  _CardDetailsFormState createState() => _CardDetailsFormState(cardNumber, expiryDate, cardHolderName, cvvCode, isCvvFocused, pin, selectedPinState, selectedcardState);
 }
 
 class _CardDetailsFormState extends State<CardDetailsForm> {
@@ -33,9 +38,11 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
   OutlineInputBorder? border;
   bool showDetailsState = false;
   bool showPinState = false;
+  int selectedPinState = 1;
+  int selectedcardState = 0;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  _CardDetailsFormState(this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.pin);
+  _CardDetailsFormState(this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.pin, this.selectedPinState , this.selectedcardState);
 
   get service => null;
 
@@ -63,7 +70,7 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
                 children:  [
                   Expanded(
                       child: Text(
-                        pin.toString(),
+                        selectedPinState == 0 ? "****" : pin.toString(),
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -125,11 +132,13 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
                         color: Colors.blue,
                         fontSize: 14,
                         fontWeight: FontWeight.w400),
-                    labels: ["Show","Hide"],
-                    icons: [Icons.person,Icons.pregnant_woman],
-                    selectedIndex: 0,
-                    selectedLabelIndex: (int ) {
-                      print("hello");
+                    labels: ["Hide","Show"],
+                    icons: [Icons.visibility_off,Icons.visibility],
+                    selectedIndex: this.selectedPinState,
+                    selectedLabelIndex: (index) {
+                      setState(() {
+                        selectedPinState = index;
+                      });
                     },
                   )
                 ],
@@ -170,11 +179,14 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
                         color: Colors.blue,
                         fontSize: 14,
                         fontWeight: FontWeight.w400),
-                    labels: ["Show","Hide"],
-                    icons: [Icons.person,Icons.pregnant_woman],
-                    selectedIndex: 0,
-                    selectedLabelIndex: (int ) {
-                      print("hello");
+                    labels: ["Hide","Show"],
+                    icons: [Icons.visibility_off,Icons.visibility],
+                    selectedIndex: this.selectedcardState,
+                    selectedLabelIndex: (index) {
+                      setState(() {
+                        selectedcardState = index;
+                      });
+                      onCardVisibleChange(selectedcardState);
                     },
                   )
                 ],
@@ -212,5 +224,11 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
       ],
     );
   }
+
+  void onCardVisibleChange(int selectedcardState) {
+    widget.onCardVisibleChange(selectedcardState);
+  }
+
+
 
 }

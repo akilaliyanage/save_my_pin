@@ -9,15 +9,17 @@ import 'package:save_my_pin/pages/card/componants/view_card_componants/card_deta
 // ignore: must_be_immutable
 class CreditCard extends StatefulWidget {
   cardModel.CreditCard creditCard;
+  int selectedcardState = 0;
   CreditCard({Key? key, required this.creditCard}) : super(key: key);
   @override
-  _CreditCardState createState() => _CreditCardState(creditCard);
+  _CreditCardState createState() => _CreditCardState(creditCard, selectedcardState);
 }
 
 class _CreditCardState extends State<CreditCard> {
   bool isCvvFocused = false;
   cardModel.CreditCard creditCard;
-  _CreditCardState(this.creditCard);
+  int _selectedcardState;
+  _CreditCardState(this.creditCard , this._selectedcardState);
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +32,8 @@ class _CreditCardState extends State<CreditCard> {
             cardHolderName: creditCard.cardHolderName,
             cvvCode: creditCard.cvvCode.toString(),
             showBackView: isCvvFocused,
-            obscureCardNumber: true,
-            obscureCardCvv: true,
+            obscureCardNumber: _selectedcardState == 0 ? true : false,
+            obscureCardCvv: _selectedcardState == 0 ? true : false,
             isHolderNameVisible: true,
             cardBgColor: Colors.red,
             backgroundImage: 'assets/images/back7.jpg',
@@ -39,11 +41,16 @@ class _CreditCardState extends State<CreditCard> {
             onCreditCardWidgetChange: (CreditCardBrand ) {  },
           ),
           SingleChildScrollView(
-            child: CardDetailsForm(cardNumber:creditCard.cardNumber , expiryDate:creditCard.expiryDate , cardHolderName:creditCard.cardHolderName , cvvCode:creditCard.cvvCode.toString(), isCvvFocused:isCvvFocused, pin: creditCard.pinNo),
+            child: CardDetailsForm(cardNumber:creditCard.cardNumber , expiryDate:creditCard.expiryDate , cardHolderName:creditCard.cardHolderName , cvvCode:creditCard.cvvCode.toString(), isCvvFocused:isCvvFocused, pin: creditCard.pinNo, onCardVisibleChange:onCardVisibleChange),
           )
         ],
       ),
     );
   }
 
+  void onCardVisibleChange(int status){
+    setState(() {
+      this._selectedcardState = status;
+    });
+  }
 }
