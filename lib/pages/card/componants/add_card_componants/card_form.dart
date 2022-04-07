@@ -219,17 +219,15 @@ class _CardFormState extends State<CardForm> {
                     CreditCard card = CreditCard(id: '',cardNumber: cardNumber!, expiryDate: expiryDate!, cardHolderName: cardHolderName!, cvvCode: int.parse(cvvCode!), pinNo: pin!, cardType: "VISA");
                     HttpServiceCard service = HttpServiceCard();
                     var adminId = await Auth.getUserId();
-                    await service.addCard(card , adminId);
+                    await service.addCard(card , adminId, context);
                   }
 
                   },
-                  child: Container(
-                    child: const Text(
-                      'Add Card',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
+                  child: const Text(
+                    'Add Card',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
                     ),
                   )
               )

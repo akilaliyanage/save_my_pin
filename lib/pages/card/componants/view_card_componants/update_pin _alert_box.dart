@@ -52,7 +52,6 @@ class _UpdatePinAlertBoxState extends State<UpdatePinAlertBox> {
               children: [
                 Expanded(
                     child: TextFormField(
-                      keyboardType: TextInputType.number,
                       obscureText: true,
                       decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(

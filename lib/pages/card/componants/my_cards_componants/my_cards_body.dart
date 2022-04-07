@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:save_my_pin/api/http_service_cards.dart';
 import 'package:save_my_pin/pages/card/componants/my_cards_componants/my_card.dart';
 import 'package:save_my_pin/pages/card/providers/device_provider.dart';
-import '../../../../auth/Auth.dart';
+import 'package:save_my_pin/pages/card/my_cards.dart';
 import '../../../../models/CreditCard.dart';
 import '../../../pwds/constants.dart';
 import '../basic_componants/card_header.dart';
@@ -47,7 +48,21 @@ class _MyCardsBodyState extends State<MyCardsBody> {
                         return MyCard(id:cards[index].id,cardNumber:cards[index].cardNumber , expiryDate:cards[index].expiryDate , cardHolderName:cards[index].cardHolderName , cvvCode:cards[index].cvvCode.toString());
                       });
                 }else{
-                  return Text("Loading");
+                  return Column(
+                    children: [
+                      SpinKitFadingCircle(
+                      itemBuilder: (BuildContext context, int index) {
+                    return DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: index.isEven ? Colors.blue : Colors.grey,
+                      ),
+                    );
+                  },
+                ),
+                      SizedBox(height: 20),
+                      Text("Loading Secure Cards...")
+                    ],
+                  );
                 }
               }),
         ),
@@ -64,6 +79,7 @@ class _MyCardsBodyState extends State<MyCardsBody> {
 
             ),
             onPressed: () async {
+              Navigator.pushNamed(context, '/add_card');
             },
             child: Container(
               child: const Text(
