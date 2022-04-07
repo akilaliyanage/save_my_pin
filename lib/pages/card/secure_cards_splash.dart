@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:save_my_pin/pages/card/providers/device_provider.dart';
 //import 'package:save_my_pin/pages/akila/secure_notes_home.dart';
 import 'package:splashscreen/splashscreen.dart';
+
+import '../pwds/constants.dart';
+import 'my_cards.dart';
 
 class secure_cards_splash extends StatelessWidget {
   static const String routeName = '/secure_cards_splash';
@@ -9,71 +13,25 @@ class secure_cards_splash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xffffD8E0FF),
-                Color(0xffff0025A8)
-              ]
-          )
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 4,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/images/creditCard.gif',
-                      height: 300.0,
-                      width: 350.0,
-                    )
-                  ],
-                ),
-            ),
-            Expanded(
-              flex: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Secure Cards",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30.0
-                      ),
-                    )
-                  ],
-                ),
-            ),
-            Expanded(
-              flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Loading your all secure cards, Please Wait!!",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15.0
-                      ),
-
-                    )
-                  ],
-                )
-            )
-
-          ],
+    return  SplashScreen(
+      // backgroundColor: Color.fromARGB(255, 144, 184, 170),
+      seconds: 6,
+      navigateAfterSeconds: my_cards(),
+      title: const Text(
+        'Secure Cards',
+        textScaleFactor: 2,
+        style: TextStyle(
+          fontWeight: FontWeight.bold
         ),
       ),
+      image: Image.asset(
+          'assets/images/creditCard.gif',
+        height: DeviceProvider.deviceHeight(context) * 0.6,
+        width: DeviceProvider.deviceWidth(context) * 5,
+      ),
+      loadingText: const Text("We are getting your secure cards, Please Wait..."),
+      photoSize: 210.0,
+      loaderColor: kPrimaryColor,
     );
   }
 }

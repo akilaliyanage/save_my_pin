@@ -1,10 +1,9 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
 import 'package:save_my_pin/api/http_service_cards.dart';
+import 'package:save_my_pin/pages/card/componants/view_card_componants/update_pin%20_alert_box.dart';
 import '../../../pwds/constants.dart';
 import '../../providers/device_provider.dart';
 
@@ -15,6 +14,7 @@ class CardDetailsForm extends StatefulWidget {
   String? cvvCode;
   bool? isCvvFocused;
   int? pin;
+  String? id;
 
   int selectedPinState = 0;
   int selectedcardState = 0;
@@ -22,9 +22,9 @@ class CardDetailsForm extends StatefulWidget {
   final onCardVisibleChange;
   // ignore: prefer_typing_uninitialized_variables
   HttpServiceCard service = HttpServiceCard();
-  CardDetailsForm({Key? key, this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.pin, this.onCardVisibleChange}) : super(key: key);
+  CardDetailsForm({Key? key, this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.pin, this.id, this.onCardVisibleChange}) : super(key: key);
   @override
-  _CardDetailsFormState createState() => _CardDetailsFormState(cardNumber, expiryDate, cardHolderName, cvvCode, isCvvFocused, pin, selectedPinState, selectedcardState);
+  _CardDetailsFormState createState() => _CardDetailsFormState(cardNumber, expiryDate, cardHolderName, cvvCode, isCvvFocused, pin, selectedPinState, id, selectedcardState);
 }
 
 class _CardDetailsFormState extends State<CardDetailsForm> {
@@ -33,6 +33,7 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
   String? cardHolderName;
   String? cvvCode;
   bool? isCvvFocused;
+  String? id;
   int? pin;
   int? confirmPin;
   OutlineInputBorder? border;
@@ -42,7 +43,7 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
   int selectedcardState = 0;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  _CardDetailsFormState(this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.pin, this.selectedPinState , this.selectedcardState);
+  _CardDetailsFormState(this.cardNumber , this.expiryDate , this.cardHolderName , this.cvvCode , this.isCvvFocused, this.pin, this.selectedPinState , this.id, this.selectedcardState);
 
   get service => null;
 
@@ -204,9 +205,11 @@ class _CardDetailsFormState extends State<CardDetailsForm> {
                         ),
                         primary: kPrimaryColor2
                     ),
-                    onPressed: () {
-
-                    },
+                    onPressed: () => showDialog(
+                      context: context,
+                      builder: (context){
+                        return UpdatePinAlertBox(parentContext: context, pin: pin!, id: id!);
+                      }),
                     child: Container(
                       child: const Text(
                         'Reset Pin No',

@@ -109,4 +109,30 @@ router.delete("/delete-card/:id", async (req, res) => {
     }
   });
 
+  //update the pin no of credit card
+  router.patch('/update-pin/:id',async (req, res)=>{
+    try{
+        var id = req.params.id;
+        var pin = req.body.pin;
+        
+        var isUpdated = await Card.findOneAndUpdate({_id: id},{pinNo : pin})
+
+        if(isUpdated){
+            try{
+              const card = await Card.findOne({ _id:req.params.id });
+  
+              if (card) {
+                res.json(card);
+              } else {
+                res.json({ status: 404, message: "card does not exist." });
+              }
+            }catch(error){
+              res.json({ error: err });
+            }
+        }
+    }catch (err){
+        res.status(500).send(err.toString())
+    }
+})
+
 module.exports = router;

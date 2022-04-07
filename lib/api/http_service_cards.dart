@@ -44,7 +44,6 @@ class HttpServiceCard {
       print("body Is : " + res.body);
       //Navigator.pushNamed(context, CardDetails.routeName);
       Navigator.push( context, MaterialPageRoute( builder: (context) => CardDetails(creditCard: card)));
-      print("Card holder Name Is : " + card.cardHolderName.toString());
     } else {
       debugPrint('error');
       log('cant fetch data');
@@ -91,6 +90,31 @@ class HttpServiceCard {
       Navigator.pushNamed(context, my_cards.routeName);
     } else {
       print("Error in Deleted");
+    }
+  }
+
+  Future updatePin(String id, String pin, BuildContext context) async {
+    print('called update');
+    print('id : ' + id + ": Pin : " + pin);
+    Response res = await patch(
+        Uri.parse(Connection.baseUrl + '/secCard/update-pin/' + id),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charSet=UTF-8'
+        },
+        body: jsonEncode(<String, String>{'pin': pin}));
+
+    if (res.statusCode == 200) {
+      print('success update');
+      Map<String , dynamic> body = jsonDecode(res.body);
+
+      CreditCard card = CreditCard.fromJson(body);
+      print("body Is : " + res.body);
+      //Navigator.pushNamed(context, CardDetails.routeName);
+      Navigator.push( context, MaterialPageRoute( builder: (context) => CardDetails(creditCard: card)));
+    } else {
+      print('false');
+      log('Error in updating pin');
+      throw "Error in updating pin";
     }
   }
 
