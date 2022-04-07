@@ -32,7 +32,7 @@ class CardnavBar extends StatelessWidget {
                     Expanded(
                       flex: 6,
                       child: Text(
-                        "User Name",
+                        "Mahendra",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -96,6 +96,18 @@ class CardnavBar extends StatelessWidget {
                 )),
             onTap: () => {},
           ),
+          const Divider(
+              color: Color.fromARGB(255, 204, 204, 204)
+          ),
+          ListTile(
+            title: const Center(
+                child: Text(
+                  "Secure Cards",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+            onTap: () => {Navigator.pushNamed(context, '/my_cards')},
+          ),
+
           const Divider(
               color: Color.fromARGB(255, 204, 204, 204)
           ),

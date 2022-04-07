@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:save_my_pin/pages/pwds/add_new/add_new_pwd_from.dart';
 import 'package:save_my_pin/pages/pwds/list_container.dart';
 import 'package:save_my_pin/pages/pwds/pwd_header.dart';
 import '../constants.dart';
@@ -47,7 +48,7 @@ class AddNew_Body extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           AddNewPwdHeader(size: size),
-          
+          NewPwdForm()
         ],
       ),
     );

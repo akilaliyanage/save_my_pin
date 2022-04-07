@@ -10,7 +10,8 @@ class Auth {
   static User user = User('', '', '', '', '');
 
 //Remember user for next login
-  static Future<void> rememberUser(String id, String name, String groupId) async {
+  static Future<void> rememberUser(
+      String id, String name, String groupId) async {
     await storage.write(key: "user_id", value: id);
     await storage.write(key: "username", value: name);
     await storage.write(key: "group_id", value: groupId);
@@ -19,7 +20,7 @@ class Auth {
   //Logout
   static Future<void> logoutUser() async {
     await storage.write(key: "user_id", value: null);
-    await storage.write(key: "username", value: "");
+    await storage.write(key: "username", value: null);
     await storage.write(key: "group_id", value: null);
   }
 
@@ -40,7 +41,6 @@ class Auth {
     var user_id = await storage.read(key: "username");
     return user_id.toString();
   }
-
 
   //Get the group id
   static Future<String> getGroupId() async {
@@ -87,27 +87,4 @@ class Auth {
     print(Auth.user);
     return user;
   }
-
-  // static Future<List<User>> getMembers() async {
-  //   var groupId = await getGroupId();
-  //   var res = await http.get(
-  //       Uri.parse(Connection.baseUrl + "/user/group/" + groupId),
-  //       headers: <String, String>{
-  //         'Content-Type': 'application/json;charSet=UTF-8'
-  //       });
-
-  //   List<User> members = [];
-  //   var result = await jsonDecode(res.body);
-
-  //   // for (var member in result['members']) {
-  //   //   User user = User(member['_id'], member["username"], member["email"],
-  //   //       member["password"], member["accessCode"]);
-
-  //   //   members.add(user);
-  //   // }
-  //   // print(members);
-  //   members = result.map((model) => User.fromJson(model)).toList();
-  //   print(members);
-  //   return members;
-  // }
 }

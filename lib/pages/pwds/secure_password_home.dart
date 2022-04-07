@@ -29,27 +29,14 @@ class _secure_password_homeState extends State<secure_password_home> {
           );
         },
       ),
-      // bottomNavigationBar: MyBottomNavBar(),
     );
   }
 
   AppBar buildAppBar() {
     return AppBar(
       elevation: 0,
-      // leading: IconButton(
-      //   icon: Image.asset("assets/images/menu.png"),
-      //   onPressed: () {
-      //     // Navigator.push(
-      //     //   context,
-      //     //   MaterialPageRoute(builder: (context) => PwdnavBarCustom()),
-      //     // );
-      //   },
-      // ),
       backgroundColor: kPrimaryColor,
-      // leading: IconButton(
-      //   icon: Icons.menu
-      //   onPressed: () {},
-      // ),
+
     );
   }
 
