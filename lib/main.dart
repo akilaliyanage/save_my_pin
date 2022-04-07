@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
 
       initialRoute: Login.routeName,
 
+
       routes: {
         '/secureNotesHome': (context) => secure_note_splash(),
         '/secPwdSplash': (context) => secure_pwd_splash(),
