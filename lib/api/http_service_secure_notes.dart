@@ -66,7 +66,7 @@ class HttpSecureNote {
       return true;
     } else {
       debugPrint('error');
-      
+
       return false;
     }
   }
@@ -81,6 +81,25 @@ class HttpSecureNote {
 
     if (res.statusCode == 200) {
       return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future searchNote(String noteName) async {
+    Response res = await http
+        .get(Uri.parse('http://localhost:8080/secure-notes/search' + noteName));
+
+    if (res.statusCode == 200) {
+
+      List<dynamic> body = jsonDecode(res.body);
+
+      List<SecureNote> products =
+          body.map((dynamic item) => SecureNote.fromJson(item)).toList();
+
+      print(products.toString());
+
+      return products;
     } else {
       return false;
     }

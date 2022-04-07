@@ -83,6 +83,7 @@ flutter:
     - assets/images/green_lock.png
     - assets/images/creditCard.gif
     - assets/images/back7.jpg
+    - assets/icons8-double-left.gif
     - assets/images/pass.gif
 
   # An image asset can refer to one or more resolution-specific "variants", see

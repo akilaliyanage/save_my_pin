@@ -6,6 +6,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:save_my_pin/api/http_service_secure_notes.dart';
 
 import 'package:save_my_pin/models/SecureNotesModel.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'constants.dart';
 
 class SecureNotesList extends StatefulWidget {
@@ -69,13 +71,10 @@ Widget secureNoteCard(
   return InkWell(
     onTap: () {
       Clipboard.setData(ClipboardData(text: body));
-      SnackBar(
-        content: const Text('Scure text copied!'),
-        action: SnackBarAction(
-          label: 'Action',
-          onPressed: () {
-            // Code to execute.
-          },
+      showTopSnackBar(
+        context,
+        CustomSnackBar.success(
+          message: "Successfilly Copied!",
         ),
       );
     },

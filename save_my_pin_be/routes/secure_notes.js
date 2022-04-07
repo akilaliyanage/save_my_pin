@@ -94,5 +94,18 @@ router.delete('/delete/:id', async (req, res, _next) => {
     }
 })
 
+router.get('/search/:name',async (req, res, _next) => {
+    try {
+        var name = req.params.name
+        let results = await SecureNote.find({"noteName": name})
+
+        if(results){
+            res.status(200).send(results)
+        }
+    } catch (err) {
+        res.status(500).send(err.toString())
+    }
+})
+
 // export router with all routes included
 module.exports = router;
