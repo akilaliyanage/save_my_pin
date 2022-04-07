@@ -21,14 +21,12 @@ class PasswordList extends StatelessWidget {
             builder:
                 (BuildContext context, AsyncSnapshot<List<Password>> snapshot) {
                   // log(snapshot.toString());
-                  debugPrint('movieTitle:'+ snapshot.toString());
+                  // debugPrint('movieTitle:'+ snapshot.toString());
               if (snapshot.hasData) {
                 log(snapshot.data.toString());
                 List<Password>? dataList = snapshot.data;
                 return Padding(
                     padding: const EdgeInsets.only(
-                      // left: kDefaultPadding,
-                      // right: kDefaultPadding,
                       bottom: kDefaultPadding * 0.5,
                     ),
                     child: Column(
@@ -94,25 +92,25 @@ Widget passwordCard(BuildContext context, String website, String username,
                         ],
                       ),
                       Column(
-                        children: const [
+                        children: [
                           Align(
                             alignment: Alignment.topRight,
                             child: Text(
-                              'Website Name',
+                              website,
                               style: TextStyle(fontSize: 20.0),
                             ),
                           ),
                           Align(
                             alignment: Alignment.topRight,
                             child: Text(
-                              'Username',
+                              username,
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                   fontSize: 15.0, color: Colors.black54),
                             ),
                           ),
                           Text(
-                            'Password',
+                            password,
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontSize: 15.0, color: Colors.black54),
@@ -136,10 +134,6 @@ Widget passwordCard(BuildContext context, String website, String username,
                       Column(
                         // ignore: prefer_const_literals_to_create_immutables
                         children: [
-                          // Icon(
-                          //   Icons.edit,
-                          //   color: Colors.blue,
-                          // ),
                           const Icon(
                             Icons.delete,
                             color: Color.fromARGB(255, 236, 153, 152),

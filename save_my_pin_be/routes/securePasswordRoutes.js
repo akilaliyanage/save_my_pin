@@ -34,11 +34,13 @@ router.post('/add-pwd', async (req, res, _next) => {
     }
 });
 
+
+//delete pwd
 router.delete('/delete/:id', async (req, res, _next) => {
     try{
-        var onbId = req.params.id
+        var pwdId = req.params.id
 
-        let isDeleted = await SecPwd.deleteOne({_id: onbId})
+        let isDeleted = await SecPwd.deleteOne({_id: pwdId})
 
         if(isDeleted){
             console.log(isDeleted);
@@ -49,4 +51,36 @@ router.delete('/delete/:id', async (req, res, _next) => {
     }
 })
 
-module.exports = router;
+//edit pwd
+router.put('/edit/:id', async (req, res, _next) => {
+    try{
+        const pwdId = req.params.id;
+        let updatePwd;
+    
+        let username = req.body.username;
+    
+        updatePwd = {
+            website : req.body.website,
+            username : req.body.username,
+            password : req.body.password,
+            addedDate: new Date(),
+        };
+    
+        await SecPwd.findByIdAndUpdate(pwdId, updatePwd).then(() => {
+          res.json({ status: 200, message: "Password updated", pwd: pwdId });
+        });
+      }
+      catch(e){
+        res.json({ status: 200, error: e });
+      }
+});
+
+//search
+router.get('/search/:txt', async (_req, res, _next) => {
+    // const index = Item.createIndex( { itemTitle: "text", description: "text" } )
+    const data = await Item.find({$text:{$search: _req.params.txt}})
+
+    res.send(data)
+});
+
+module.exports = router;  
