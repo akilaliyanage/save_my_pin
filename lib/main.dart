@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      initialRoute: Login.routeName,
+      initialRoute: '/secPwdSplash',
 
 
       routes: {
