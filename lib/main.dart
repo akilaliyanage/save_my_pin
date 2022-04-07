@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      initialRoute: '/secPwdSplash',
+      initialRoute: Login.routeName,
+
 
       routes: {
         '/secureNotesHome': (context) => secure_note_splash(),
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         secure_cards_splash.routeName: (context) => const secure_cards_splash(),
         add_card.routeName: (context) => add_card(),
         my_cards.routeName: (context) => my_cards(),
+        //CardDetails.routeName: (context) => CardDetails(),
       },
     );
   }
