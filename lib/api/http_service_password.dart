@@ -12,6 +12,7 @@ class HttpServicePassword {
   Future<List<Password>> getPasswords(String userId) async {
     log(userId);
 
+
     Response res = await http
         .get(Uri.parse("http://localhost:8080/secPwd/get-pwd/" + userId));
 
@@ -45,7 +46,7 @@ class HttpServicePassword {
     print(dataMap.toString());
 
     Response res = await http.post(
-        Uri.parse("http://localhost:8080/secPwd/add-pwd"),
+        Uri.parse("http://10.0.2.2:8080/secPwd/add-pwd"),
         headers: <String, String>{
           'Content-Type': 'application/json;charSet=UTF-8'
         },
@@ -64,6 +65,7 @@ class HttpServicePassword {
     }
   }
 
+
   Future<bool> delNote(String id) async {
     Response res = await http
         .delete(Uri.parse("http://localhost:8080/secPwd/delete/" + id));
@@ -78,6 +80,7 @@ class HttpServicePassword {
   }
 
   Future<List<Password>> getSearchPasswords(String searchString) async {
+
     Response res = await get(
         Uri.parse("http://localhost:8000/secPwd/search/" + searchString));
     if (res.statusCode == 200) {
