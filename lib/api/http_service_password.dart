@@ -12,16 +12,18 @@ class HttpServicePassword {
   Future<List<Password>> getPasswords(String userId) async {
     log(userId);
 
-    Response res =
-        await get(Uri.parse("http://localhost:8080/secPwd/get-pwd/" + userId));
+    Response res = await http
+        .get(Uri.parse("http://localhost:8080/secPwd/get-pwd/" + userId));
 
-    log(res.toString());
+    print(res);
     if (res.statusCode == 200) {
-      log(res.body);
+      //print(res.body);
       List<dynamic> body = jsonDecode(res.body);
 
       List<Password> products =
           body.map((dynamic item) => Password.fromJson(item)).toList();
+
+      print(products[0].toString());
 
       return products;
     } else {
@@ -59,10 +61,9 @@ class HttpServicePassword {
     }
   }
 
-  Future delNote(String id) async {
-
-    Response res = await http.delete(
-        Uri.parse("http://localhost:8080/secPwd/delete/" + id));
+  Future<bool> delNote(String id) async {
+    Response res = await http
+        .delete(Uri.parse("http://localhost:8080/secPwd/delete/" + id));
 
     log(res.toString());
     if (res.statusCode == 200) {
@@ -73,9 +74,9 @@ class HttpServicePassword {
     }
   }
 
-
   Future<List<Password>> getSearchPasswords(String searchString) async {
-    Response res = await get(Uri.parse("http://localhost:8000/secPwd/search/"+searchString));
+    Response res = await get(
+        Uri.parse("http://localhost:8000/secPwd/search/" + searchString));
     if (res.statusCode == 200) {
       log(res.body);
       List<dynamic> body = jsonDecode(res.body);
@@ -90,5 +91,4 @@ class HttpServicePassword {
       throw "cant get pwds";
     }
   }
-
 }
