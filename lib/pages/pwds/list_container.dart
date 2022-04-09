@@ -24,15 +24,18 @@ class PasswordList extends StatelessWidget {
               // log(snapshot.toString());
               // debugPrint('movieTitle:'+ snapshot.toString());
               if (snapshot.hasData) {
+
                 log(snapshot.data.toString());
                 List<Password> dataList = snapshot.data as List<Password>;
+
                 return Padding(
                     padding: const EdgeInsets.only(
                       bottom: kDefaultPadding * 0.5,
                     ),
                     child: Column(
-                      children: dataList
-                          .map(
+
+                      children: dataList.map(
+
                             (Password e) => Column(
                               children: <Widget>[
                                 passwordCard(context, e.website, e.username,

@@ -24,7 +24,7 @@ class PwdnavBarCustom extends StatelessWidget {
                   children: const [
                     CircleAvatar(
                       backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                      child: Text('U'),
+                      child: Text('TU'),
                       radius: 40,
                     ),
                     SizedBox(
@@ -33,7 +33,7 @@ class PwdnavBarCustom extends StatelessWidget {
                     Expanded(
                       flex: 6,
                       child: Text(
-                        "User Name",
+                        "Test User",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
