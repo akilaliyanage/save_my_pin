@@ -8,7 +8,7 @@ const SecPwd = require('../models/SecurePassword');
 router.get('/get-pwd/:id', async (req,res) =>{
     try {
         const pwds = await SecPwd.find({user_id : req.params.id})
-        // console.log(pwds);
+        console.log(pwds);
         res.status(200).send(pwds)
     } catch (error) {
         res.status(500).send(error)

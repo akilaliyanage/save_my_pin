@@ -18,7 +18,7 @@ class _UpdatePinAlertBoxState extends State<UpdatePinAlertBox> {
   BuildContext parentContext;
   int pin;
   int? _currentPin;
-  int? _accessKey;
+  String? _accessKey;
   int? _newPin;
   int? _confirmPin;
   String id;
@@ -71,7 +71,7 @@ class _UpdatePinAlertBoxState extends State<UpdatePinAlertBox> {
                       onChanged: (String? value){
                         if(value != null && value.isNotEmpty){
                           setState(() {
-                            _accessKey = int.parse(value);
+                            _accessKey = value;
                           });
                         }
 
@@ -208,6 +208,7 @@ class _UpdatePinAlertBoxState extends State<UpdatePinAlertBox> {
             ),
             onPressed: () async {
               if(_accessKey == null || _currentPin == null || _newPin == null || _confirmPin == null){
+                print(_accessKey);
                 Fluttertoast.showToast(
                     msg: "Please Fill the required fields",
                     toastLength: Toast.LENGTH_SHORT,
